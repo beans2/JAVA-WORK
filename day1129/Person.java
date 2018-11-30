@@ -104,7 +104,7 @@ public class Person {
 	 * @return 결과
 	 */
 	public String eat() {
-		return name+"이 집에서 밥을 먹는다.";
+		return name+"이(가) 집에서 밥을 먹는다.";
 	}//eat
 	/**
 	 * method overload :다형성 -같은 이름의 method를 여러개 정의하는 방법.
