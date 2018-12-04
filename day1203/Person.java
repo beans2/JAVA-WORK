@@ -128,6 +128,27 @@ public abstract class Person {
 	 * 사람은 언어를 여러개 할 수 있다.
 	 * @return 할수있는 언어
 	 */
-	public abstract String[] language(String lang);
+	
+	public String[] language(String lang) {
+		String[] tempLang= getLanguage();
+		
+		int idx=0;
+		for(int i=0; i<tempLang.length;i++) {
+			if(tempLang[i]!=null) {
+				//습득한 언어가 존재한다면 다음 인덱스를 얻는다.
+				if(lang.equals(tempLang[i])) {
+					//입력된 언어가 이미 습득한 언어라면 반복문을 빠져나가 
+					//해당 방에 덮어쓸 수 있는 인덱스를 가진다.
+					break;	
+				}//end if
+				idx++; //
+			}//end if
+		}//end for
+		//없으면 추가되고 있다면 덮어쓴다.: upsert
+		tempLang[idx]=lang;
+		return tempLang;
+		
+	}//language
+	
 	
 }//class
