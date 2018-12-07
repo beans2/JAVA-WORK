@@ -32,7 +32,7 @@ public class Work1207 {
 		//입력받은 String을 공백에 맞게 구분해주기
 		StringTokenizer stk= new StringTokenizer(day, " ");
 		
-		//입력받은 값을 Set에 저장 //31일 이상의 요일은 거르기
+		//입력받은 값을 Set에 저장(중복제거) //31일 이상의 요일은 거르기(if)
 		Set<String> inputDay = new HashSet<String>();
 		String temp =" ";
 		while(stk.hasMoreTokens()) {
@@ -42,34 +42,31 @@ public class Work1207 {
 			}//end if
 		}//end while
 		
-		//값 하나씩 확인해서 요일부여
-		Calendar cal = Calendar.getInstance();//캘린더
-		Iterator<String> ita = inputDay.iterator();
+		Calendar cal = Calendar.getInstance();//캘린더 생성
+		Iterator<String> ita = inputDay.iterator(); //set안의 값을 검색하기 위한 이터레이터
 		
-		//날짜를 입력받은 날로 바꾸고 그에 맞는 요일을 구하기
-		//그리고 인스턴스 변수로 선언한 Map에 저장
-		String[] weekTitle = {"일","월","화","수","목","금","토"};
-		int i =0;
-		int day_of_week=0;
-		int inpday = 0;
-		while(ita.hasNext()) { //맵에 값저장
+		//캘린더 사용해서 이터레이터로 받아온 날로 바꾸고 그에 맞는 요일을 구해서
+		//인스턴스 변수로 선언한 Map에 저장(While 안 반복)
+		String[] weekTitle = {"일","월","화","수","목","금","토"}; //DAY_OF_WEEK 숫자형 반환을 요일 변환하기 위해 요일을 저장한 배열
+		int day_of_week=0; //요일에 대한 인덱스 받는 지역변수
+		int inpday = 0; // 날짜를 저장할 지역변수
+		while(ita.hasNext()) { 
 			inpday =Integer.parseInt(ita.next());
 			cal.set(Calendar.DAY_OF_MONTH,inpday);
 			day_of_week = cal.get(Calendar.DAY_OF_WEEK);
 			dayOfWeek.put(inpday,weekTitle[day_of_week-1]);
-			i++;
 		}//end while
 	}//storeDay
 	
 	//storeDay에서 가공한 데이터를 이용해 값을 출력하는 메소드
 	public void printDay(Map dayOfWeek){
-		
-		Set<String> day = dayOfWeek.keySet(); 
-		Integer[] key = new Integer[dayOfWeek.size()];
-		day.toArray(key);
-		int temp=0;
+		//key 저장할 배열 생성
+		Set<String> day = dayOfWeek.keySet();  //Map안의 모든 키를 day라는 1차원배열 set에 저장
+		Integer[] key = new Integer[dayOfWeek.size()]; //key를 저장할 Integer형 배열 생성
+		day.toArray(key); //set안의 모든 키들을 key 배열에 저장
 		
 		//작은 수가 앞으로 오도록 정렬(오름차순)
+		int temp=0;
 		for(int i=0; i<dayOfWeek.size();i++) {
 			for(int j=0; j<dayOfWeek.size();j++) {
 				if(key[i]<key[j]) {
