@@ -3,7 +3,6 @@ package day1206;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Stack;
 
 public class Work1206 {
 	/**
@@ -62,5 +61,4 @@ public class Work1206 {
 	public static void main(String[] args) {
 		new Work1206();
 	}
-
 }
