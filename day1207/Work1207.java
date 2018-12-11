@@ -66,6 +66,7 @@ public class Work1207 {
 		day.toArray(key); //set안의 모든 키들을 key 배열에 저장
 		
 		//작은 수가 앞으로 오도록 정렬(오름차순)
+		
 		int temp=0;
 		for(int i=0; i<dayOfWeek.size();i++) {
 			for(int j=0; j<dayOfWeek.size();j++) {
