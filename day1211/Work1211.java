@@ -4,7 +4,6 @@ import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Label;
-import java.awt.Panel;
 import java.awt.TextField;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
