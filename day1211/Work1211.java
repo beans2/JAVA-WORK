@@ -57,17 +57,16 @@ public class Work1211 extends Frame implements  ItemListener {
 	}
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		String[] color= {"°ËÀº»ö","ÆÄ¶õ»ö","»¡°£»ö","³ì»ö","½ÉÈ«»ö"	};
 		String choiceColor = choice.getSelectedItem();
-		if(color[0]==choiceColor) {
+		if(choiceColor=="°ËÀº»ö") {
 			tf.setForeground(Color.BLACK);
-		}else if(color[1]==choiceColor) {
+		}else if(choiceColor=="ÆÄ¶õ»ö") {
 			tf.setForeground(Color.BLUE);
-		}else if(color[2]==choiceColor) {
+		}else if(choiceColor=="»¡°£»ö") {
 			tf.setForeground(Color.RED);
-		}else if(color[3]==choiceColor) {
+		}else if(choiceColor=="³ì»ö") {
 			tf.setForeground(Color.GREEN);
-		}else if(color[4]==choiceColor) {
+		}else if(choiceColor=="½ÉÈ«»ö") {
 			tf.setForeground(Color.MAGENTA);
 		}		
 	}
