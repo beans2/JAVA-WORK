@@ -52,16 +52,17 @@ public class Work1206UseSetMap {
 		Iterator<Integer> ita2 = index.iterator();
 		Integer[] ranindex = new Integer[setName.size()]; 
 		int k =0;
-		while(index.size()==setName.size()) {
-			index.add(n.nextInt(6));
+		while(true) {
+			if(index.size()<6) {
+				index.add(n.nextInt(5));
+				if(index.size()==5){
+					break;
+				}
+			}
 		}
+		
 		System.out.println(index);
-		for(int i=0; i<num;i++) {
-			result.put(ita.next(), randScore[i]);
-		}
-		System.out.println(result);
-		
-		
+
 	}//Work1206UseSetMap
 
 	public static void main(String[] args) {
