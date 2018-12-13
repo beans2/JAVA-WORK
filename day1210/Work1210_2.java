@@ -1,5 +1,6 @@
 package day1210;
 
+import java.awt.Button;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Label;
@@ -12,17 +13,19 @@ import java.awt.event.WindowEvent;
 public class Work1210_2 extends Frame{
 	public Work1210_2() {
 		super("수동배치");
+		//////////버튼/////////////////////
+		Button btn1 = new Button("확인");
 		///////////라벨///////////////////
 		Label lblFont = new Label("글꼴");
 		Label lblFontstyle = new Label("글꼴스타일");
 		Label lblFontsize = new Label("크기");
 		Label lblLook= new Label("보기");
+		Label tflook = new Label("AaBbYyZz");
 		
 		///////////텍스트필드//////////////
 		TextField tf1 = new TextField();
 		TextField tf2 = new TextField();
 		TextField tf3 = new TextField();
-		TextField tflook = new TextField("AaBbYyZz");
 		
 		////////////리스트///////////////
 		List listFont = new List();
@@ -78,6 +81,9 @@ public class Work1210_2 extends Frame{
 		tflook.setBounds(180,350,250,80);
 		tflook.setFont(new Font("Dialog", Font.BOLD,50));
 		add(tflook);
+		
+		btn1.setBounds(500,400,50,30);
+		add(btn1);
 		
 		/////////////////윈도우 사이즈//////////////////
 		setBounds(10,10,600,500);

@@ -77,7 +77,7 @@ public class IsAWork1212 extends Frame implements ActionListener,ItemListener {
 		btnDel.addActionListener(this);
 		btnAlt.addActionListener(this);
 		btnCls.addActionListener(this);
-		
+
 		
 		
 		////////////////////////////////윈도우크기//////////////////////////////////
@@ -101,15 +101,82 @@ public class IsAWork1212 extends Frame implements ActionListener,ItemListener {
 	}//DesignWork1212
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-	
+	public void actionPerformed(ActionEvent ae) {
+		// 추가/삭제/변경/닫기 버튼이 눌린다면
+
+		if (ae.getSource() == btnAdd) { //추가버튼이 눌렸을 때
+//			if (!(dw.getTfName().getText().isEmpty()) || !(dw.getTfAge().getText().isEmpty())
+//					|| !(dw.getTfAddr().getText().isEmpty())) {
+			if (!(tfName.getText().equals("")) || !(tfAge.getText().equals(""))  //공백입력이 아니라면
+					|| !(tfAddr.getText().equals(""))) {
+				add(); //추가작업
+			}
+		}
+		if (ae.getSource() == btnDel) { //삭제버튼이 눌렸을 때
+			delete(); //삭제작업
+		}
+		if (ae.getSource() == btnAlt) { //변경버튼이 눌렸을 때
+			alter(); //변경작업
+		}
+		if (ae.getSource() == btnCls) { //닫기버튼이 눌렸을 때
+			close();//닫기작업
+		}
 	}
 
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		// TODO Auto-generated method stub	
+		listselect();
 	}
+	
+	private void listselect() { //리스트가 선택되었을 때 메소드
+		String info = list.getSelectedItem();
+		String[] naa = info.toString().split("/");
+		tfName.setText(naa[0]);
+		tfAge.setText(naa[1]);
+		tfAddr.setText(naa[2]);
+		
+	}
+
+	private void add() {//추가메소드
+
+		StringBuilder list1 = new StringBuilder();
+		list1.append(tfName.getText()).append("/").append(tfAge.getText()).append("/")
+				.append(tfAddr.getText());
+		list.add(list.toString());
+		tfName.setText("");
+		tfAge.setText("");
+		tfAddr.setText("");
+	}
+
+
+	private void delete() {//삭제메소드
+//		List list = dw.getList();
+		String info = list.getSelectedItem();
+		list.remove(info);
+		tfName.setText("");
+		tfAge.setText("");
+		tfAddr.setText("");
+	}
+
+	private void alter() {//변경메소드
+		StringBuilder str = new StringBuilder();
+		str.append(tfName.getText()).append("/").append(tfAge.getText()).append("/")
+				.append(tfAddr.getText());
+		int info = list.getSelectedIndex();
+//		dw.getList().add(str.toString(), info);
+		list.remove(info);
+		list.add(str.toString(), info);
+		tfName.setText("");
+		tfAge.setText("");
+		tfAddr.setText("");
+	}
+
+	private void close() {//닫기메소드
+		dispose();
+	}
+	
+	
 	public static void main(String[] args) {
 		new DesignWork1212();
 	}

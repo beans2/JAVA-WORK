@@ -74,8 +74,8 @@ public class DesignWork1212 extends Frame{
 		btnAlt.addActionListener(ew);
 		btnCls.addActionListener(ew);
 		list.addItemListener(ew);
-		
-		
+		tfAddr.addKeyListener(ew);
+//		tfAddr.addFocusListener(ew);
 		
 		////////////////////////////////윈도우크기//////////////////////////////////
 		
