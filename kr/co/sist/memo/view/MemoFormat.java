@@ -96,12 +96,10 @@ public class MemoFormat extends Dialog {
 		btnYes.setBounds(230,305,45,30);
 		btnNo.setBounds(300,305,45,30);
 
-		
 		add(lblFont);
 		add(tfFontText);
 		add(listFont);
-		
-		
+				
 		add(lblStyle);
 		add(tfStyleText);
 		add(listStyle);
@@ -125,10 +123,8 @@ public class MemoFormat extends Dialog {
 		listStyle.addItemListener(mfe);
 		listSize.addItemListener(mfe);
 		
-		
 		addWindowListener(mfe);
-		
-		
+			
 		setBounds(jm.getX()+150,jm.getY()+80,400,350);
 		setResizable(false);
 		setVisible(true);
@@ -136,7 +132,6 @@ public class MemoFormat extends Dialog {
 	}
 	
 	public static void main(String[] args) {
-		new JavaMemo();
 	}//MemoFormat
 
 	public JavaMemo getJm() {

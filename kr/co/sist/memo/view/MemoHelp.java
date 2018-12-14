@@ -44,7 +44,6 @@ public class MemoHelp extends Dialog{
 		
 	}//HelpFormat
 	public static void main(String[] args) {
-		new JavaMemo();
 	}
 	public Button getBtnOk() {
 		return btnOk;
