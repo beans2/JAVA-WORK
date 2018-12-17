@@ -86,7 +86,7 @@ public class EvtWork1212 implements ActionListener,ItemListener,KeyListener{
 		dw.getTfAge().setText("");
 		dw.getTfAddr().setText("");
 		dw.getTfName().requestFocus();
-		return;
+//		return;
 	}
 
 
@@ -112,7 +112,7 @@ public class EvtWork1212 implements ActionListener,ItemListener,KeyListener{
 		dw.getTfAge().setText("");
 		dw.getTfAddr().setText("");
 		dw.getTfName().requestFocus();
-		return;
+//		return;
 	}
 
 	private void close() {//´Ý±â¸Þ¼Òµå

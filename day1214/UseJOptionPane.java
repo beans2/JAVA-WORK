@@ -17,7 +17,6 @@ import kr.co.sist.memo.view.JavaMemo;
 public class UseJOptionPane extends JFrame implements ActionListener {
 	private JButton btn1,btn2,btn3;
 	private JLabel jlOutput;
-	
 	public UseJOptionPane() {
 		super("JOptionPane »ç¿ë");
 
