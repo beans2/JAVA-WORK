@@ -16,35 +16,39 @@ public class Work1217 extends JFrame {
 	private String selectMenu;
 	private String inputData;
 	private ArrayList<String> list = new ArrayList<String>();
-	
+
 	private int count = 1;
 	private StringBuffer s;
 
 	public Work1217() {
-
-		while(true) {
+		String flag;
+		while (true) {
 			selectDialog();
-			if (Integer.parseInt(selectMenu)==1) {
-				inputDialog();
-				
-			} else if (Integer.parseInt(selectMenu)==2) {
-				if (list.isEmpty()) {
-					outputNotDataMessage();
+			flag = selectMenu; // 1, 2, 3일 때
+
+			if (selectMenu != null) {
+				if (flag.equals("1")) {
+					inputDialog();
+				} else if (flag.equals("2")) {
+					if (list.isEmpty()) {
+						outputNotDataMessage();
+					} else {
+						showList();
+					}
+				} else if (flag.equals("3")) {
+					break;
 				} else {
-					showList();
-					
+					JOptionPane.showMessageDialog(this, "잘못입력하셨습니다");
 				}
-			} else if (Integer.parseInt(selectMenu)==3) {
-				break;
 			} else {
-				JOptionPane.showMessageDialog(this, "잘못입력하셨습니다");
+				break;
 			}
-		}//end while		
-	}//Work1217
+		} // end while
+	}// Work1217
 
 	public void selectDialog() { // 메뉴선택 다이얼로그 창
 		selectMenu = JOptionPane.showInputDialog("메뉴선택\n 1.입력 2.출력 3.종료");
-	}//selectDialog
+	}// selectDialog
 
 	public void inputDialog() { // 점수입력 다이얼로그 창
 
@@ -56,38 +60,38 @@ public class Work1217 extends JFrame {
 			return;
 		} // end if
 		inputToList();
-	}//inputDialog
+	}// inputDialog
 
 	public void outputNotDataMessage() { // 데이터 없는 메시지 다이얼로그 창
 		JOptionPane.showMessageDialog(null, "데이터가 없습니다");
-	}//outputNotDataMessage()
+	}// outputNotDataMessage()
 
 	public void inputToList() {
 		String[] tempData = inputData.split(",");
 		int sum = 0;
 		int avg = 0;
-		 
+
 		list.add(String.valueOf(count));
 		if (tempData.length == 3) {
 			for (int i = 0; i < tempData.length; i++) {
-				list.add(tempData[i]+"   ");
+				list.add(tempData[i] + "   ");
 			}
 			count++;
 
 			sum += Integer.parseInt(tempData[1].trim()) + Integer.parseInt(tempData[2].trim());
 			avg = sum / 2;
-			list.add(String.valueOf(sum+"   "));
-			list.add(String.valueOf(avg+"   "));
+			list.add(String.valueOf(sum + "   "));
+			list.add(String.valueOf(avg + "   "));
 			list.add("\n");
-		}//end if
+		} // end if
 	}// inputToList
 
 	public void showList() {
-		StringTokenizer stk = new StringTokenizer(list.toString(),",.[.]");
-		s= new StringBuffer();
-		while(stk.hasMoreTokens()){
+		StringTokenizer stk = new StringTokenizer(list.toString(), ",.[.]");
+		s = new StringBuffer();
+		while (stk.hasMoreTokens()) {
 			s.append(stk.nextToken());
-        }
+		}
 		JTextArea jta = new JTextArea();
 		jta = new JTextArea(10, 40);
 		jta.setEditable(false);
@@ -95,9 +99,9 @@ public class Work1217 extends JFrame {
 		jta.append(String.valueOf(s));
 		JScrollPane jsp;
 		jsp = new JScrollPane(jta);
-		JOptionPane.showMessageDialog(null,jsp);
-	}//showList
-	
+		JOptionPane.showMessageDialog(null, jsp);
+	}// showList
+
 	public static void main(String[] args) {
 		new Work1217();
 	}// main
