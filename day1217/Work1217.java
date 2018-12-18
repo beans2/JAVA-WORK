@@ -16,39 +16,35 @@ public class Work1217 extends JFrame {
 	private String selectMenu;
 	private String inputData;
 	private ArrayList<String> list = new ArrayList<String>();
-	private JTextArea jta;
-	private JScrollPane jsp;
+	
 	private int count = 1;
 	private StringBuffer s;
 
 	public Work1217() {
 
-			jta = new JTextArea(10, 40);
-			jta.setEditable(false);
-			jta.append("번호 이름 자바 오라클 총점 평균\n");
 		while(true) {
 			selectDialog();
-			if (selectMenu.equals("1".trim())) {
+			if (Integer.parseInt(selectMenu)==1) {
 				inputDialog();
 				
-			} else if (selectMenu.equals("2".trim())) {
+			} else if (Integer.parseInt(selectMenu)==2) {
 				if (list.isEmpty()) {
 					outputNotDataMessage();
 				} else {
 					showList();
 					
 				}
-			} else if (selectMenu.equals("3".trim())) {
+			} else if (Integer.parseInt(selectMenu)==3) {
 				break;
 			} else {
 				JOptionPane.showMessageDialog(this, "잘못입력하셨습니다");
 			}
-		}		
-	}//end while
+		}//end while		
+	}//Work1217
 
 	public void selectDialog() { // 메뉴선택 다이얼로그 창
 		selectMenu = JOptionPane.showInputDialog("메뉴선택\n 1.입력 2.출력 3.종료");
-	}
+	}//selectDialog
 
 	public void inputDialog() { // 점수입력 다이얼로그 창
 
@@ -60,11 +56,11 @@ public class Work1217 extends JFrame {
 			return;
 		} // end if
 		inputToList();
-	}
+	}//inputDialog
 
 	public void outputNotDataMessage() { // 데이터 없는 메시지 다이얼로그 창
 		JOptionPane.showMessageDialog(null, "데이터가 없습니다");
-	}
+	}//outputNotDataMessage()
 
 	public void inputToList() {
 		String[] tempData = inputData.split(",");
@@ -79,28 +75,28 @@ public class Work1217 extends JFrame {
 			count++;
 
 			sum += Integer.parseInt(tempData[1].trim()) + Integer.parseInt(tempData[2].trim());
-//			System.out.println(sum);
 			avg = sum / 2;
-//			System.out.println(avg);
 			list.add(String.valueOf(sum+"   "));
 			list.add(String.valueOf(avg+"   "));
 			list.add("\n");
-		}
-	}
+		}//end if
+	}// inputToList
 
 	public void showList() {
 		StringTokenizer stk = new StringTokenizer(list.toString(),",.[.]");
 		s= new StringBuffer();
-		System.out.println(stk.countTokens());
 		while(stk.hasMoreTokens()){
 			s.append(stk.nextToken());
         }
-//		System.out.println(s);
+		JTextArea jta = new JTextArea();
+		jta = new JTextArea(10, 40);
+		jta.setEditable(false);
+		jta.append("번호 이름 자바 오라클 총점 평균\n");
 		jta.append(String.valueOf(s));
+		JScrollPane jsp;
 		jsp = new JScrollPane(jta);
-		System.out.println(String.valueOf(jsp));
 		JOptionPane.showMessageDialog(null,jsp);
-	}
+	}//showList
 	
 	public static void main(String[] args) {
 		new Work1217();
