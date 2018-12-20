@@ -1,5 +1,6 @@
 package day1214;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,7 +85,8 @@ public class UseTitledBorder extends JFrame implements ActionListener {
 			//비밀번호에 값이 있다면 아이디가 admin, 비밀번호가 123과 같은지
 			//비교하여 같다면 자바메모장 클래스를 실행
 			if(id.equals("admin")&&pass.equals("123")) {
-				new JavaMemo();
+				Font font = null;
+				new JavaMemo(font);
 				dispose();
 			}else {
 				jlOutput.setText("아이디나 비밀번호를 확인해주세요");
