@@ -13,10 +13,10 @@ import java.io.InputStreamReader;
  * @author owner
  */
 public class UseFileInputStream {
-	public UseFileInputStream() {
+	public UseFileInputStream() throws IOException{
 		File file = new File("c:/dev/temp/java_read.txt");
 		if(file.exists()) {
-			
+			BufferedReader br = null ;
 			try {
 				//스트림을 생성하여 파일과 JVM에서 HDD의 파일과 연결
 //				FileInputStream fis = new FileInputStream(file);
@@ -30,21 +30,24 @@ public class UseFileInputStream {
 				
 				///////////////////12-20-2018 코드 추가///////////////////////////////////
 				//8bit Stream과 16bit Stream 연결: 한글이 깨지는 문제해결.
-				FileInputStream fis = new FileInputStream(file); //파일과 연결
-				InputStreamReader isr = new InputStreamReader(fis,"EUC-KR"); //8bit+16bit 연결
-				BufferedReader br = new BufferedReader(isr);////속도개선, 줄단위 읽어들이는 기능
+//				FileInputStream fis = new FileInputStream(file); //파일과 연결
+//				InputStreamReader isr = new InputStreamReader(fis,"EUC-KR"); //8bit+16bit 연결
+//				br = new BufferedReader(isr);////속도개선, 줄단위 읽어들이는 기능
+				
+				br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"EUC-KR"));
 				
 				String temp = "";
 				while((temp=br.readLine()) !=null) { //줄단위로(\n전까지)로 읽어서 읽어들인 내용이 있다면
 					System.out.println(temp);
 				}//end while
 				
-				br.close(); //반드시 연결을 종료
 				
 			}catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
+			}finally {
+				if(br != null) {br.close();};//end if    BufferedReader가 값을 갖고 있다면 끊겠다.
 			}//end catch
 			
 		}else {
@@ -52,9 +55,11 @@ public class UseFileInputStream {
 		}
 	}//UseFileInputStream
 	public static void main(String[] args) {
-		new UseFileInputStream();
-		
-		
+		try {
+			new UseFileInputStream();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
