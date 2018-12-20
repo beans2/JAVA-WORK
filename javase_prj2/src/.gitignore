@@ -1,0 +1,8 @@
+.metadata/
+.recommenders/
+
+javase_prj/.settings/
+javase_prj/bin/
+javase_prj/doc/
+javase_prj/.classpath
+javase_prj/.project
