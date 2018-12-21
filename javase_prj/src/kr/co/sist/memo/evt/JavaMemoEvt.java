@@ -122,7 +122,6 @@ public class JavaMemoEvt extends WindowAdapter implements ActionListener {
 	public void closeAndSave() {
 		TextArea tempTa = jm.getTaNote();
 		boolean flagOpen = false;
-
 		if (!taNoteData.equals(tempTa.getText())) {
 			int flag = JOptionPane.showConfirmDialog(jm, openPath + "\n  저장하시겠습니까?");
 			switch (flag) {
@@ -135,15 +134,10 @@ public class JavaMemoEvt extends WindowAdapter implements ActionListener {
 					newSaveMemo();
 				} // end else
 			case JOptionPane.NO_OPTION:
-				flagOpen = false;
-				break;
+				jm.dispose();
 			default:
-				flagOpen = true;
 			} // end switch
 		} // end if
-		if (!flagOpen) {
-			jm.dispose();
-		}
 	}//closeAndSave
 	public void openMemo() throws FileNotFoundException, IOException {
 
