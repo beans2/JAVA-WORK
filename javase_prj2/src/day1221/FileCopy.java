@@ -44,7 +44,6 @@ public class FileCopy extends JFrame implements ActionListener,Runnable{
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}//FileCopy
-	int a;
 	public void run() {
 		for(int i=0; i<fileLen;i++) {
 			try {
