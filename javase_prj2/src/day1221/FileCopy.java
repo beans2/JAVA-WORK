@@ -75,7 +75,7 @@ public class FileCopy extends JFrame implements ActionListener,Runnable{
 				ie.printStackTrace();
 			}//end catch
 		}//end if
-		
+		int a;
 	}//actionPerformed
 	public void copy(File file)throws FileNotFoundException,IOException{
 		
