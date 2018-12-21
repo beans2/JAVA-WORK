@@ -9,129 +9,138 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.activation.FileDataSource;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-/**
- *
- * @author owner
- */
 @SuppressWarnings("serial")
-public class FileCopy extends JFrame implements ActionListener,Runnable{
+public class FileCopy extends JFrame implements ActionListener, Runnable {
 	private JButton jb;
 	private JProgressBar jpb;
 	private long fileLen;
 	private int cnt;
+	File file;
 	
 	public FileCopy() {
-		super("ÌååÏùºÎ≥µÏÇ¨");
-		jb= new JButton("ÌååÏùºÏÑ†ÌÉù");
-		jpb = new JProgressBar(0,100);
-		jpb.setString("ÏßÑÏ≤ôÎèÑ");
-		jpb.setValue(50);
+		super("∆ƒ¿œ∫πªÁ");
+		jb=new JButton("∆ƒ¿œº±≈√");
+		jpb=new JProgressBar(0, 100);
+		jpb.setString("¡¯√¥µµ");
+//		jpb.setValue(50);
 		
-		JPanel jp = new JPanel();
+		JPanel jp=new JPanel();
 		jp.add(jb);
 		
 		add("Center",jp);
 		add("South",jpb);
 		
 		jb.addActionListener(this);
-		setBounds(100,100,500,200);
+		setBounds(100, 100, 500, 200);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}//FileCopy
+	@Override
 	public void run() {
-		for(int i=0; i<fileLen;i++) {
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
+		StringBuilder copyFileName=new StringBuilder(file.getAbsolutePath());
+		copyFileName.insert(copyFileName.lastIndexOf("."),"_bak");
+		FileInputStream fis=null;
+		FileOutputStream fos=null;
+		try {
+			
+			//ø¯∫ª∆ƒ¿œø° Ω∫∆Æ∏≤ ø¨∞·
+			fis=new FileInputStream(file);
+			fos=new FileOutputStream(copyFileName.toString());// _back∞° µÈæÓ∞£ ¿Ã∏ß
+			//∆ƒ¿œ∞˙ ø¨∞·µ» Ω∫∆Æ∏≤ø°º≠ ∞™¿ª æÚ¥¬¥Ÿ. 
+			int temp=0;
+			fileLen=file.length();
+			cnt=0;
+			int i=0;
+			while( (temp=fis.read()) != -1) {
+				fos.write(temp);
+				fos.flush();
+				jpb.setValue( (int)(( i/(double)fileLen)*100) );
+				if(jpb.getValue()==100) {
+					break;
+				}
+				//¿–æÓ µÈ¿Œ≥ªøÎ¿ª _bak∞° ∫Ÿ¿∫ ∆ƒ¿œ¿ª ª˝º∫«œø© √‚∑¬ (∫πªÁ)
+//				System.out.print( (char)temp );
+				i++;
+			}//end while
+			JOptionPane.showMessageDialog(this, file+"∫πªÁ º∫∞¯");
+		}catch(IOException ie) {
+		}finally {
+			if( fis != null ) { try {
+				fis.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			jpb.setValue((int)((i/(double)fileLen)*100));
-		}
+			} }//end if
+			if( fos != null ) { try {
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} }//end if
+		}//end finally
 	}//run
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		FileDialog fd = new FileDialog(this, "ÌååÏùºÏÑ†ÌÉù", FileDialog.LOAD);
+		FileDialog fd=new FileDialog(this, "∆ƒ¿œº±≈√", FileDialog.LOAD);
 		fd.setVisible(true);
 		
-		String path = fd.getDirectory();
-		String name = fd.getFile();
-		if(path!=null) {
-			File file = new File(path+name);
+		String path=fd.getDirectory();
+		String name=fd.getFile();
+		if( path != null ) {
+			file=new File(path+name);
 			try {
 				copy(file);
-				JOptionPane.showMessageDialog(this, file+"Î≥µÏÇ¨ ÏÑ±Í≥µ");
+				
 			} catch (FileNotFoundException fnfe) {
-				JOptionPane.showMessageDialog(this, "ÌååÏùºÏù¥ Ï°¥Ïû¨ÌïòÏßÄ ÏïäÏäµÎãàÎã§.");
+				JOptionPane.showMessageDialog(this, "∆ƒ¿œ¿Ã ¡∏¿Á«œ¡ˆ æ Ω¿¥œ¥Ÿ.");
 				fnfe.printStackTrace();
 			} catch (IOException ie) {
-				JOptionPane.showMessageDialog(this, "ÏûÖÏ∂úÎ†• ÏûëÏóÖÏóê Î¨∏Ï†ú Î∞úÏÉù.");
+				JOptionPane.showMessageDialog(this, "¿‘√‚∑¬ ¿€æ˜ø° πÆ¡¶ πﬂª˝.");
 				ie.printStackTrace();
 			}//end catch
 		}//end if
-
-	}//actionPerformed
-	public void copy(File file)throws FileNotFoundException,IOException{
 		
-		int selectValue = JOptionPane.showConfirmDialog(this ,"ÌååÏùºÏùÑ Î≥µÏÇ¨ÌïòÏãúÍ≤†ÏäµÎãàÍπå?");
+	}//actionPerformed
+	
+	public void copy(File file)throws FileNotFoundException,IOException {
+		
+		int selectValue=JOptionPane.showConfirmDialog(this, "∆ƒ¿œ¿ª ∫πªÁ«œΩ√∞⁄Ω¿¥œ±Ó?");
+		
 		switch (selectValue) {
 		case JOptionPane.OK_OPTION:
-			StringBuilder copyFileName = new StringBuilder(file.getAbsolutePath());
-			copyFileName.insert(copyFileName.lastIndexOf("."),"_bak");
-//			System.out.println(copyFileName);
+		
+//			System.out.println( copyFileName );
 			
-			FileInputStream fis = null;
-			FileOutputStream fos = null;
-			
-			try {
-				
-				//ÏõêÎ≥∏ÌååÏùºÏóê Ïä§Ìä∏Î¶ºÏùÑ Ïó∞Í≤∞
-				fis= new FileInputStream(file);
-				fos = new FileOutputStream(copyFileName.toString()); // _bakÍ∞Ä Îì§Ïñ¥Í∞Ñ Ïù¥Î¶Ñ
-//				ÌååÏùºÍ≥º Ïó∞Í≤∞Îêú Ïä§Ìä∏Î¶ºÏóêÏÑú Í∞íÏùÑ ÏñªÎäîÎã§.
-				int temp = 0;
-				fileLen = file.length();
-//				System.out.println(fileLen);
-				cnt=0;
-				Thread t = new Thread(this);
+	
+				Thread t =new Thread(this);
 				t.start();
-//				HDDÍ∞Ä ÏùΩÏñ¥Îì§Ïù¥Îäî ÌÅ¨Í∏∞Î•º Î¨¥ÏãúÌïòÍ≥† 1byteÏî© ÏùΩÏñ¥Îì§Ïó¨ ÏÇ¨Ïö©
-				while((temp = fis.read())!= -1) {
-					fos.write(temp);
-					fos.flush();
-//					jpb.setValue((int)((i/(double)fileLen)*100));
-//					System.out.println((int)((i/(double)fileLen)*100));
-//					System.out.println(jpb.getValue());
-					//ÏùΩÏñ¥Îì§Ïù∏ ÎÇ¥Ïö©ÏùÑ _bakÍ∞Ä Î∂ôÏùÄ ÌååÏùºÏùÑ ÏÉùÏÑ±ÌïòÏó¨ Ï∂úÎ†•(Î≥µÏÇ¨)
-//					System.out.print((char)temp);
-					cnt++;
-				}//end while	
-				//HDDÍ∞Ä ÌïúÎ≤àÏóê ÏùΩÏñ¥Îì§Ïù¥Îäî ÌÅ¨Í∏∞Î•º Í∑∏ÎåÄÎ°ú ÏÇ¨Ïö©
-//				byte[] temp = new byte[512];
-//				int len =0;
-//				while((len=fis.read(temp))!=-1) {
-//					fos.write(temp,0,len);
-//					fos.flush();	
+//				 HDD∞° ¿–æÓµÈ¿Ã¥¬ ≈©±‚∏¶ π´Ω√«œ∞Ì 1byteæø ¿–æÓµÈø© ªÁøÎ
+			
+				//HDD∞° «—π¯ø° ¿–æÓµÈ¿Ã¥¬ ≈©±‚∏¶ ±◊¥Î∑Œ ªÁøÎ
+//				byte[] temp=new byte[512];
+//				int len=0;
+//				while(( len=fis.read(temp)) != -1) {
+//					fos.write(temp, 0, len);
+//					fos.flush();					
 //				}//end while
 				
-			}finally {
-				if(fis != null) {fis.close();}//end if
-				if(fos != null) {fos.close();}//end if
-			}//end finally
-			
-			
+		
 			
 		}//end switch
 		
 	}//copy
+
 	public static void main(String[] args) {
-		 new FileCopy();
+		new FileCopy();
 	}//main
 
 }//class
