@@ -25,7 +25,7 @@ public class SimpleClient {
 		try {
 			String ip = JOptionPane.showInputDialog
 					("서버 ip\n130,132,133,134,135,158,146,131,141,142,143,144,155,156,148,149,151,152,153");
-			client =new Socket("211.63.89."+ip, 3000);
+			client =new Socket("211.63.89."+ip, 65535);
 			System.out.println("서버에 접속 하였습니다."+client);		
 			//7.소켓에서 스트림 얻기
 			dis = new DataInputStream(client.getInputStream());
