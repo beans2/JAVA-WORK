@@ -116,7 +116,8 @@ private String clientNick;//클라이언트의 대화명
 	public void connectToServer() throws IOException {
 		clientNick = JOptionPane.showInputDialog("대화명 입력");
 		//2.
-		client =new Socket("211.63.89.142",65535);
+//		client =new Socket("211.63.89.142",65535);
+		client =new Socket("211.63.89.142",35000);
 		
 		//4. 스트림연결
 		readStream=new DataInputStream(client.getInputStream());
