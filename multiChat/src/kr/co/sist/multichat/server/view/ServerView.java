@@ -19,7 +19,7 @@ public class ServerView extends JFrame {
    private JButton jbStart, jbClose;
    private Panel Center, soso;
    
-   public ServerView() {
+public ServerView() {
       super("채팅 서버");
       
        Center = new Panel();
@@ -66,12 +66,33 @@ public class ServerView extends JFrame {
       jbStart.addActionListener(se);
       jbClose.addActionListener(se);
       
-      addWindowListener(se);
-      
-      
-      
+      addWindowListener(se);    
    }//hwServer
-   public JButton getJbStart() {
+   public JTextArea getJtaChatDisplay1() {
+	return jtaChatDisplay1;
+}
+public JTextArea getJtaChatDisplay2() {
+	return jtaChatDisplay2;
+}
+public JTextArea getJtaChatDisplay3() {
+	return jtaChatDisplay3;
+}
+public JTextArea getJtaChatDisplay4() {
+	return jtaChatDisplay4;
+}
+public JScrollPane getJspChatDisplay1() {
+	return jspChatDisplay1;
+}
+public JScrollPane getJspChatDisplay2() {
+	return jspChatDisplay2;
+}
+public JScrollPane getJspChatDisplay3() {
+	return jspChatDisplay3;
+}
+public JScrollPane getJspChatDisplay4() {
+	return jspChatDisplay4;
+}
+public JButton getJbStart() {
       return jbStart;
    }
    public JButton getJbClose() {

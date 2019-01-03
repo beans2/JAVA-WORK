@@ -20,12 +20,16 @@ public class ClientChatView extends JFrame {
     private JTextField jtfTalk;
     private JButton jbConnect, jbCapture, jbClose, jbUser;
     private JLabel jlNick;
-    
     private JScrollPane jsp;
+    private int selectTeam;
     
-    public ClientChatView () {
+    public int getSelectTeam() {
+		return selectTeam;
+	}
+	public ClientChatView (int selectTeam) {
         super("채팅 클라이언트");    
         
+        this.selectTeam = selectTeam;
         jlNick =new JLabel("대화명");
         jtfNick=new JTextArea();
         jbConnect=new JButton("접속");
@@ -55,16 +59,30 @@ public class ClientChatView extends JFrame {
         add("South", jtfTalk);
         
         ClientChatEvt cce=new ClientChatEvt(this);
+        
+        jbConnect.addActionListener(cce);
+        jbClose.addActionListener(cce);
         jbUser.addActionListener(cce);
+        jbUser.addActionListener(cce);
+        jtfTalk.addActionListener(cce);
         
         setBounds(300, 300, 500 ,500);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    public JButton getJbConnect() {
+    public JTextArea getJtfNick() {
+		return jtfNick;
+	}
+	public JScrollPane getJsp() {
+		return jsp;
+	}
+	public JButton getJbConnect() {
         return jbConnect;
     }
-    public JButton getJbCapture() {
+    public JTextField getJtfTalk() {
+		return jtfTalk;
+	}
+	public JButton getJbCapture() {
         return jbCapture;
     }
     public JButton getJbClose() {
@@ -73,10 +91,10 @@ public class ClientChatView extends JFrame {
     public JButton getJbUser() {
         return jbUser;
     }
-    public static void main(String[] args) {
-        new ClientChatView();
-       
-    }
+	public JTextArea getJtaChatDisplay() {
+		return jtaChatDisplay;
+	}
+	
 }
 
 

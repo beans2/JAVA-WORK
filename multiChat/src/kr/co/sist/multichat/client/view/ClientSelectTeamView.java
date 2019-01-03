@@ -80,6 +80,9 @@ public class ClientSelectTeamView extends JFrame {
 	public JRadioButton getJrTeam4() {
 		return jrTeam4;
 	}
+	public static void main(String[] args) {
+		new ClientSelectTeamView();
+	}
 	
 
 }

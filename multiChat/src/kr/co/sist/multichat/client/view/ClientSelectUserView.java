@@ -33,4 +33,5 @@ public class ClientSelectUserView extends JDialog {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}// useJDialog
 
+
 }// class
