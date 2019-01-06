@@ -91,6 +91,7 @@ public class ServerEvt extends WindowAdapter implements ActionListener{
 							while (true) {
 								someClient2 = server2.accept();
 								sh2 = new ServerHelper(someClient2, listClient2, sv, sv.getJtaChatDisplay2(), sv.getJspChatDisplay2());
+								
 								listClient2.add(sh2);
 								sh2.start();
 							} // end while

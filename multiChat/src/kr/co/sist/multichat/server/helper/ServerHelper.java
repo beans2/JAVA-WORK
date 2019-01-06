@@ -51,11 +51,16 @@ public class ServerHelper extends Thread {
 		if(readStream!=null) {
 			try {
 				String revMsg ="";
+				
 				while(true) {
 					revMsg = readStream.readUTF();
 					broadcast(revMsg);
 				}//end while
 			}catch(IOException ie) {
+				String deleteNick = "";
+				for(int i=0;i<connectList.size();i++) {
+					deleteNick = connectList.get(i).getNick();					
+				}
 				connectList.remove(this);
 				jta1.setText("["+nick+"]접속자 퇴실.");
 				broadcast("["+nick+"]님이 퇴실하였습니다.");
@@ -67,10 +72,14 @@ public class ServerHelper extends Thread {
 	}//run
 	public synchronized void broadcast(String msg) {
 		ServerHelper sh = null;
+		
 		for (int i = 0; i < connectList.size(); i++) {
+			
 			sh = connectList.get(i);// list에서 Helper객체를 얻고
+			
 			try {
-				sh.writeStream.writeUTF(msg);// 출력 스트림에 출력
+//				sh.writeStream.writeUTF(connectList.get(i).getNick());
+				sh.writeStream.writeUTF(msg + "%%" + sh.getNick());// 출력 스트림에 출력
 				sh.writeStream.flush();// 목적지로 분출
 			} catch (IOException ie) {
 				JOptionPane.showMessageDialog(jf, "[" + nick + "] 접속자에게 메세지를 보낼 수 없습니다.");
@@ -78,7 +87,9 @@ public class ServerHelper extends Thread {
 			} // end catch
 		}
 	}// broadcast
-	
+	public String getNick() {
+		return nick;
+	}
 }
 
 

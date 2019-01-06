@@ -12,6 +12,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -31,7 +35,9 @@ public class ClientChatEvt extends WindowAdapter implements ActionListener, Runn
 	private String nick;
 	private ClientSelectTeamView cstv;
 	private ClientSelectTeamEvt cste;
+	private Set<String> nickList;
 	
+
 	public ClientChatEvt(ClientChatView ccv) {		
 		this.ccv = ccv;
 	}// ClientChatEvt
@@ -41,11 +47,18 @@ public class ClientChatEvt extends WindowAdapter implements ActionListener, Runn
 		if (readStream != null) {
 			try {
 				String revMsg = "";
-				JScrollPane jsp = ccv.getJsp();
-				
+				String nick = "";
+				JScrollPane jsp = ccv.getJsp();	
+				nickList= new HashSet<String>();
 				while (true) {
 					revMsg = readStream.readUTF();
-					ccv.getJtaChatDisplay().append(revMsg + "\n");
+					nickList.add(revMsg.substring(revMsg.lastIndexOf("%%") + 2));
+					System.out.println(nickList);
+					
+//					ccv.getJtaChatDisplay().append(revMsg/*.substring(0,revMsg.lastIndexOf("%"))+"\n"*/);
+					ccv.getJtaChatDisplay().append(revMsg.substring(0, revMsg.lastIndexOf("%%")) + "\n");
+					
+					
 					jsp.getVerticalScrollBar().setValue(jsp.getVerticalScrollBar().getMaximum());
 				} // end while
 			} catch (IOException e) {
@@ -82,7 +95,7 @@ public class ClientChatEvt extends WindowAdapter implements ActionListener, Runn
 	private void connectToServer() throws UnknownHostException, IOException {
 		if (client == null) {
 			nick = ccv.getJtfNick().getText().trim();
-
+			
 			if (nick.equals("")) {
 				JOptionPane.showMessageDialog(ccv, "대화명을 입력하세요.");
 				ccv.getJtfNick().requestFocus();
@@ -96,6 +109,8 @@ public class ClientChatEvt extends WindowAdapter implements ActionListener, Runn
 			// 닉네임 보내기
 			writeStream.writeUTF(nick);
 			writeStream.flush();
+			
+			
 
 			ccv.getJtaChatDisplay().setText("서버에 접속하였습니다\n");
 			threadMsg = new Thread(this);
@@ -177,6 +192,9 @@ public class ClientChatEvt extends WindowAdapter implements ActionListener, Runn
 				ie.printStackTrace();
 			}//end catch
 		}//end if
+	}
+	public Set<String> getNickList() {
+		return nickList;
 	}
 
 }

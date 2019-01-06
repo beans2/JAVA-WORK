@@ -30,6 +30,11 @@ public ServerView() {
        jtaChatDisplay2 = new JTextArea();
        jtaChatDisplay3 = new JTextArea();
        jtaChatDisplay4 = new JTextArea();
+       
+       jtaChatDisplay1.setEditable(false);
+       jtaChatDisplay2.setEditable(false);
+       jtaChatDisplay3.setEditable(false);
+       jtaChatDisplay4.setEditable(false);
       
        jspChatDisplay1 = new JScrollPane(jtaChatDisplay1);
        jspChatDisplay2 = new JScrollPane(jtaChatDisplay2);

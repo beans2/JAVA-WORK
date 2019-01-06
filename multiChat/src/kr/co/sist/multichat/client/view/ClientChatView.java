@@ -42,7 +42,7 @@ public class ClientChatView extends JFrame {
         jsp=new JScrollPane(jtaChatDisplay);
         
         jtfTalk=new JTextField();
-        
+        jtaChatDisplay.setEditable(false);
         
         Panel panelNorth=new Panel();
         panelNorth.setLayout(new GridLayout(1, 6));
