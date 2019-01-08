@@ -26,10 +26,17 @@ public class work0107View extends JFrame {
 		jlbselect = new JLabel("테이블선택");
 		jcbTable = new JComboBox<String>();
 		jbnSelect = new JButton("선택");
-		String[] columnNames = {"테이블목록"};//++
+		String[] columnNames = {"컬럼명","데이터형","크기","제약사항"};//++
 		dtmSelect = new DefaultTableModel(columnNames,0);//++
 		JTable jtSelect = new JTable(dtmSelect);//++
 		JScrollPane jsp = new JScrollPane(jtSelect);//++
+		jtSelect.getTableHeader().setReorderingAllowed(false);
+		jtSelect.setRowHeight(24);
+		
+		jtSelect.getColumnModel().getColumn(0).setPreferredWidth(60);
+		jtSelect.getColumnModel().getColumn(1).setPreferredWidth(30);
+		jtSelect.getColumnModel().getColumn(2).setPreferredWidth(10);
+		jtSelect.getColumnModel().getColumn(3).setPreferredWidth(100);
 		
 		setLayout(null);
 		
@@ -90,10 +97,12 @@ public class work0107View extends JFrame {
 			rs = stmt.executeQuery(sb.toString());
 			while(rs.next()) {
 				jcbTable.addItem(rs.getString("tname"));		
-			}
-			
+			}		
 		}finally {
-			//5. 연결끊기			
+			//5. 연결끊기		
+			if(rs!=null) {rs.close();}
+			if(stmt!=null) {stmt.close();}
+			if(con!=null) {con.close();}
 		}
 		
 	}
@@ -107,7 +116,7 @@ public class work0107View extends JFrame {
 	public JButton getJbnSelect() {
 		return jbnSelect;
 	}
-	public DefaultTableModel getDtmSelect() {
+	public DefaultTableModel getDtmSelect() {//++
 		return dtmSelect;
 	}
 	

@@ -225,7 +225,7 @@ public class RunUseStatementCRUD {
 				JOptionPane.showMessageDialog(null, "서버에서 문제 발생!!!");
 				e.printStackTrace();
 			}
-;		}
+		}
 	}//searchOneCpdept
 	
 	
