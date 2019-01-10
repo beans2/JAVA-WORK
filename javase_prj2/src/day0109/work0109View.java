@@ -85,7 +85,7 @@ public class work0109View extends JFrame{
 		add(jlbConstraints);
 		
 		jcbConstraints.setBounds(100,110,100,30);
-		String[] listConstrains = {" ", "primary key","unique","not null","null"};
+		String[] listConstrains = {"null", "primary key","unique","not null","forign key"};
 		for(int i=0;i<listConstrains.length;i++) {
 			jcbConstraints.addItem(listConstrains[i]);
 		}
