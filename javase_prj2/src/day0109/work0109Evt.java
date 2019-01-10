@@ -31,15 +31,19 @@ public class work0109Evt extends WindowAdapter implements ActionListener, ItemLi
 	public void addTableName() {
 		StringBuilder tableName = new StringBuilder();
 		getTableName = wv.getJtfTableName().getText();
-		tableName.append("create table ").append(getTableName).append("(");
-		query = tableName;
-		wv.getJtaQueryView().setText(query.toString());
-		wv.getJtfTableName().setText("");
-		flag = true;
+		if((wv.getJtfTableName().getText()!=null)||wv.getJtfTableName().getText().equals("")) {
+			tableName.append("create table ").append(getTableName).append("(");
+			query = tableName;
+			wv.getJtaQueryView().setText(query.toString());
+			wv.getJtfTableName().setText("");
+			flag = true;			
+		}else {
+			JOptionPane.showMessageDialog(null, "테이블명을 입력해주세요.");
+		}
 	}
 
 	public void addColumn() {
-
+		
 		String getColumnName = wv.getJtfColumnName().getText();
 		int getDataPrecision = Integer.parseInt(wv.getJtfDataPrecision().getText());
 		String getConstraintName = wv.getJtfConstraintsName().getText();
@@ -91,22 +95,17 @@ public class work0109Evt extends WindowAdapter implements ActionListener, ItemLi
 			PreparedStatement pstmt =null;
 			
 			try {
-				//1.
-				//2.
 					String url = "jdbc:oracle:thin:@127.0.0.1:1521:orcl";
 					String id = "scott";
 					String pass = "tiger";
 					con = GetConnetion.getInstance().getConn(url, id, pass);
 					
-				//3. //테이블이 존재하는지?
 					System.out.println(query);
 					pstmt = con.prepareStatement(query.toString());
-				//5.
 					pstmt.execute();
 					JOptionPane.showMessageDialog(null, "테이블 생성 완료!");
 	
 			}finally {
-				//6.	
 				if(pstmt!= null) {pstmt.close();}
 				if(con!=null) {con.close();}
 			}
