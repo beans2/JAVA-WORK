@@ -8,7 +8,7 @@ import kr.co.sist.connection.GetConnetion;
 public class Test {
 	
 	public Test() throws SQLException {
-		String url = "jdbc:oracle:thin:@211.63.89.135:1521:orcl";
+		String url = "jdbc:oracle:thin:@172.30.1.34:1521:orcl";
 		String id ="scott";
 		String pass ="tiger";
 		
@@ -17,13 +17,7 @@ public class Test {
 		System.out.println(con);
 		
 	}//Test
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	public static void main(String[] args) {
