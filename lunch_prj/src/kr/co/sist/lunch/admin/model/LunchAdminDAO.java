@@ -87,19 +87,39 @@ public class LunchAdminDAO {
 	public List<LunchVO> selectLunch()throws SQLException{
 		List<LunchVO> list = new ArrayList<LunchVO>();
 		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
 		//1.
 		//2.
+			String selectAllLunch ="SELECT LUNCH_CODE,LUNCH_NAME,IMG,PRICE FROM LUNCH";
+			con = getConn();
 		//3.
+			pstmt = con.prepareStatement(selectAllLunch);
 		//4.
 		//5.
-		//6.
-		
+			rs = pstmt.executeQuery();
+			LunchVO lv =null;
+			
+			while(rs.next()) {
+				lv = new LunchVO(rs.getString("LUNCH_CODE"), rs.getString("LUNCH_NAME"), rs.getString("IMG"), rs.getInt("PRICE"));
+				list.add(lv);
+			}
+			
+		}finally {
+			//6.
+			if(rs!=null) {rs.close();}//end if
+			if(pstmt!=null) {pstmt.close();}
+			if(rs!=null) {rs.close();}
+		}//end if
 		return list;
 	}//selectLunch
 	
 	public static void main(String[] args) {
 		try {
-			System.out.println(getInstance().login(new AdminLoginVO("1","1234")));
+			System.out.println(getInstance().selectLunch());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -6,6 +6,6 @@ public class LunchAdminMain {
 
 	public static void main(String[] args) {
 		new LunchLoginView();
-	}//main
 
+	}//main
 }//class

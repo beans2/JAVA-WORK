@@ -22,5 +22,10 @@ public class LunchVO {
 	public int getPrice() {
 		return price;
 	}
+	@Override
+	public String toString() {
+		return "LunchVO [lunchCode=" + lunchCode + ", lunchName=" + lunchName + ", img=" + img + ", price=" + price
+				+ "]";
+	}
 	
 }
