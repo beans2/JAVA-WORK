@@ -50,6 +50,8 @@ public class LunchLoginController extends WindowAdapter implements ActionListene
 			}else {
 				
 				new LunchMainView(adminName);
+				LunchMainView.adminId = id; //로그인이 성공했다면 id를 모든 객체에서 사용할 수 있도록 설정한다.
+				
 //				llv.dispose();
 			}//end else
 			
@@ -94,7 +96,7 @@ public class LunchLoginController extends WindowAdapter implements ActionListene
 		LunchAdminDAO la_dao = LunchAdminDAO.getInstance();
 		
 		try {
-			adminName = la_dao.login(alvo);
+		adminName = la_dao.login(alvo);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(llv, "DB에서 문제가 발생했습니다.");
 			e.printStackTrace();

@@ -25,6 +25,7 @@ public class LunchMainView extends JFrame{
 	private JComboBox<Integer> jcbYear,jcbMonth, jcbDay;
 	private JTable jtLunch,jtOrder; //메뉴, 주문
 	private Calendar cal ;
+	public static String adminId;
 	private DefaultComboBoxModel<Integer> cbmYear,cbmMonth,cbmDay;
 	
 	
@@ -36,8 +37,29 @@ public class LunchMainView extends JFrame{
 		jtb = new JTabbedPane();
 		//도시락
 		String[] lunchColumns = {"번호","도시락코드","이미지","도시락명","가격"};
-		dtmLunch = new DefaultTableModel(lunchColumns,4);
-		jtLunch = new JTable(dtmLunch);
+		dtmLunch = new DefaultTableModel(lunchColumns,4) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		jtLunch = new JTable(dtmLunch) {
+			@Override
+			public Class getColumnClass(int column) {
+				return getValueAt(0, column).getClass();
+			}
+		};
+		
+		//도시락 테이블 크기 설정 : w(800), 이미지 w(122)x h(110)
+		jtLunch.getColumnModel().getColumn(0).setPreferredWidth(80);
+		jtLunch.getColumnModel().getColumn(1).setPreferredWidth(120);//140
+		jtLunch.getColumnModel().getColumn(2).setPreferredWidth(125);//265
+		jtLunch.getColumnModel().getColumn(3).setPreferredWidth(265);//
+		jtLunch.getColumnModel().getColumn(4).setPreferredWidth(220);
+		
+		//테이블의 높이
+		jtLunch.setRowHeight(110);
+		
 		//정산
 		String[] calcColumns = {"번호","도시락명","수량","가격"};
 		dtmCalc = new DefaultTableModel(calcColumns, 4);
@@ -115,6 +137,8 @@ public class LunchMainView extends JFrame{
 		setDay(); //JCB Day설정
 		
 		LunchMainController lmc = new LunchMainController(this);
+		addWindowListener(lmc);
+		
 		jtb.addMouseListener(lmc); //탭에서 이벤트가 발생했을 때
 		jtLunch.addMouseListener(lmc);
 		jtOrder.addMouseListener(lmc);
@@ -129,7 +153,6 @@ public class LunchMainView extends JFrame{
 	}//LunchMainView
 	private void setYear() { //현재년도 4년전까지
 		int year = cal.get(Calendar.YEAR);
-//		int[] year = {2016,2017,2018,2019};
 		for(int temp=0;temp<4;temp++) {
 			cbmYear.addElement(year-temp);
 		}
@@ -138,7 +161,6 @@ public class LunchMainView extends JFrame{
 	}//setYear
 	private void setMonth() { //1~12월
 		int now_month = cal.get(Calendar.DAY_OF_MONTH)+1;
-//		int[] month = {1,2,3,4,5,6,7,8,9,10,11,12};
 		for(int month=1;month<13;month++) {
 			cbmMonth.addElement(month);
 		}
@@ -222,7 +244,5 @@ public class LunchMainView extends JFrame{
 	public DefaultComboBoxModel<Integer> getCbmDay() {
 		return cbmDay;
 	}
-	
-	
 	
 }//class
