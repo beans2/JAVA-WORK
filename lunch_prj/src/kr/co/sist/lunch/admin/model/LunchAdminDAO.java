@@ -10,9 +10,13 @@ import java.util.List;
 
 import kr.co.sist.lunch.admin.view.LunchMainView;
 import kr.co.sist.lunch.admin.vo.AdminLoginVO;
+import kr.co.sist.lunch.admin.vo.CalcVO;
 import kr.co.sist.lunch.admin.vo.LunchAddVO;
 import kr.co.sist.lunch.admin.vo.LunchDetailVO;
+import kr.co.sist.lunch.admin.vo.LunchUpdateVO;
 import kr.co.sist.lunch.admin.vo.LunchVO;
+import kr.co.sist.lunch.admin.vo.OrderVO;
+import kr.co.sist.lunch.user.vo.OrderListVO;
 
 public class LunchAdminDAO {
 	
@@ -221,9 +225,165 @@ public class LunchAdminDAO {
 		return flag;
 	}//deleteLunch
 	
+	/**
+	 * 도시락 코드, 도시락명, 이미지 가격, 특장점을 입력받아 도시락 코드에 해당하는
+	 * 도시락을 변경/ 이미지가""라면 이미지는 변경하지 않는다.
+	 * @param luvo
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean updateLunch(LunchUpdateVO luvo)throws SQLException {
+		boolean flag =false;
+		Connection con =null;
+		PreparedStatement pstmt = null;
+		
+		try {
+		//1.
+		//2.
+			con = getConn();
+		//3.
+			StringBuilder updateLunch = new StringBuilder();
+			
+			updateLunch
+			.append("     update lunch          ")
+			.append("     set lunch_name=?,  ")
+			.append("     price=?,            ")
+			.append("     spec=?             ");
+			if(!luvo.getImg().equals("")) {
+				updateLunch.append(", img=?"    );
+			}
+			updateLunch
+			.append(" where lunch_code=?  ");
+			
+			pstmt = con.prepareStatement(updateLunch.toString());
+			
+			
+		//4.바인드 변수 값 넣기
+			pstmt.setString(1, luvo.getLunch_name());
+			pstmt.setInt(2, luvo.getPrice());
+			pstmt.setString(3, luvo.getSpec());
+//			int index = 4;
+			if(!luvo.getImg().equals("")) {
+				
+				pstmt.setString(4, luvo.getImg());				
+				pstmt.setString(5, luvo.getLunch_code());				
+			}else {
+				pstmt.setString(4, luvo.getLunch_code());			
+			}
+			
+		//5.
+			int cnt =pstmt.executeUpdate();
+			if(cnt==1) {
+				flag=true;
+			}//end if
+			
+		}finally {
+			//6.
+			if(pstmt!=null) {pstmt.close();}
+			if(con!=null) {con.close();}
+		}
+		return flag;
+	}//updateLunch
+	
+	public List<CalcVO> selectCalc(String date ) throws SQLException{
+		List<CalcVO> list = new ArrayList<CalcVO>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+		//1.
+		//2.
+			con = getConn();
+		//3.
+			StringBuilder selectCalc = new StringBuilder();
+			selectCalc
+			.append("	select l.lunch_name, l.lunch_code, sum(o.quan) total, sum(o.quan)*l.price price	")
+			.append("	from lunch l ,ordering o	")
+			.append("	where o.lunch_code = l.lunch_code	")
+			.append("		and to_char(o.order_date,'yyyy-mm-dd')= to_char(to_date( ? ,'yyyy-mm-dd'), 'yyyy-mm-dd')	")
+			.append("	group by l.lunch_name, l.lunch_code, l.price	")
+			.append("	order by l.lunch_code	 ");
+		//4.
+			pstmt = con.prepareStatement(selectCalc.toString());
+			
+			pstmt.setString(1, date);
+		//5.
+			rs = pstmt.executeQuery();
+			
+			CalcVO cvo =null;
+			while(rs.next()) {
+				cvo = new CalcVO(rs.getString("lunch_code"), rs.getString("lunch_name"), rs.getInt("price"),rs.getInt("total"));
+				list.add(cvo);
+			}
+		}finally {
+			//6.
+			if(rs!=null) {rs.close();}
+			if(pstmt !=null) {pstmt.close();}
+			if(con!= null) {con.close();}
+		}
+		
+		
+		return list;
+	}//selectCalc
+	
+	/**
+	 * 오늘의 13시 이전의 주문 현황
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<OrderVO> selectOrderList() throws SQLException{
+		List<OrderVO> list =new ArrayList<OrderVO>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+		//1.
+		//2.
+		con = getConn();
+		//3.
+		StringBuilder selectOrder =new StringBuilder();
+		selectOrder
+		.append("	select o.order_num, l.lunch_code, l.lunch_name, o.order_name, o.quan	")
+		.append("	, l.price*o.quan price, to_char(o.order_date,'yyyy=mm-dd hh:mi:ss') order_date, o.phone, o.ip_address, o.status	")
+		.append("	from  lunch l, ordering o	")
+		.append("	where o.lunch_code = l.lunch_code	")
+//		.append("		and to_char(order_date, 'yyyy-mm-dd')= to_char(sysdate,'yyyy-mm-dd')	")
+		.append("		and to_char(order_date, 'yyyy-mm-dd')= '2019-01-15'	")
+		.append("		and to_char(order_date,'hh24')<=13	")
+		.append("		order by o.order_num	");
+		
+		pstmt = con.prepareStatement(selectOrder.toString());
+		//4.
+//		pstmt.setString(1, );
+		//5.
+		rs = pstmt.executeQuery();
+		
+		OrderVO ovo = null;
+		
+		while(rs.next()) {
+			ovo = new OrderVO(rs.getString("order_num"), rs.getString("lunch_code"), rs.getString("lunch_name"), 
+					rs.getString("order_name"), rs.getString("order_date"), rs.getString("phone"), 
+					rs.getString("ip_address"), rs.getString("status"), rs.getInt("quan"), rs.getInt("price"));
+			list.add(ovo);
+		}//end while
+		
+		}finally {
+			//6.
+			if(rs!=null) {rs.close();}
+			if(pstmt!=null) {pstmt.close();}
+			if(con!=null) {con.close();}
+			
+		}
+		return list;
+	}
+	
 	public static void main(String[] args) {
 		try {
-			System.out.println(getInstance().selectDetailLunch("L_000002"));
+			System.out.println(getInstance().selectOrderList());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

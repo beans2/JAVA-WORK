@@ -8,7 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -26,6 +28,10 @@ public class LunchMainView extends JFrame{
 	private JTable jtLunch,jtOrder; //메뉴, 주문
 	private Calendar cal ;
 	public static String adminId;
+	
+	private JPopupMenu jpOrderMenu;
+	private JMenuItem jmOrderRemove, jmOrderStratus;
+	
 	private DefaultComboBoxModel<Integer> cbmYear,cbmMonth,cbmDay;
 	
 	
@@ -61,13 +67,47 @@ public class LunchMainView extends JFrame{
 		jtLunch.setRowHeight(110);
 		
 		//정산
-		String[] calcColumns = {"번호","도시락명","수량","가격"};
-		dtmCalc = new DefaultTableModel(calcColumns, 4);
+		String[] calcColumns = {"번호","도시락명(도시락코드)","수량","가격"};
+		dtmCalc = new DefaultTableModel(calcColumns, 4) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}//isCellEditable
+		};
 		JTable jtCalc= new JTable(dtmCalc);
+		//정산 테이블 컬럼 넓이설정 : 전체 800,
+		jtCalc.getColumnModel().getColumn(0).setPreferredWidth(100);
+		jtCalc.getColumnModel().getColumn(1).setPreferredWidth(400);
+		jtCalc.getColumnModel().getColumn(2).setPreferredWidth(150);
+		jtCalc.getColumnModel().getColumn(3).setPreferredWidth(150);
+		//정산테이블의 높이 설정
+		jtCalc.setRowHeight(25);
+		
+		
 		//주문
 		String[] orderColumns = {"번호","주문번호","도시락코드","도시락명","주문자명","수량","가격","주문일","연락처","주문자ip","제작상태"};
 		dtmOrder = new DefaultTableModel(orderColumns, 4);
-		jtOrder = new JTable(dtmOrder);
+		jtOrder = new JTable(dtmOrder) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		//주문 테이블 컬럼 넓이 설정 : 전체 800
+		jtOrder.getColumnModel().getColumn(0).setPreferredWidth(30);
+		jtOrder.getColumnModel().getColumn(1).setPreferredWidth(105);
+		jtOrder.getColumnModel().getColumn(2).setPreferredWidth(70);
+		jtOrder.getColumnModel().getColumn(3).setPreferredWidth(70);
+		jtOrder.getColumnModel().getColumn(4).setPreferredWidth(55);
+		jtOrder.getColumnModel().getColumn(5).setPreferredWidth(30);
+		jtOrder.getColumnModel().getColumn(6).setPreferredWidth(50);
+		jtOrder.getColumnModel().getColumn(7).setPreferredWidth(130);
+		jtOrder.getColumnModel().getColumn(8).setPreferredWidth(100);
+		jtOrder.getColumnModel().getColumn(9).setPreferredWidth(100);
+		jtOrder.getColumnModel().getColumn(10).setPreferredWidth(60);
+		//테이블의 높이
+		jtOrder.setRowHeight(23);
+		jtOrder.setRowHeight(23);
 		
 		jbtAddLunch = new JButton("도시락 추가");
 		jbtCalcOrder = new JButton("정산");
@@ -129,6 +169,15 @@ public class LunchMainView extends JFrame{
 		
 		jtb.addTab("정산", jpCalc);
 		
+		jpOrderMenu = new JPopupMenu();
+		jmOrderRemove = new JMenuItem("주문삭제");
+		jmOrderStratus = new JMenuItem("제작완료");
+		
+		jpOrderMenu.add(jmOrderStratus);
+		jpOrderMenu.addSeparator();
+		jpOrderMenu.add(jmOrderRemove);
+		
+		
 		//탭을 프레임에 배치
 		add("Center",jtb);
 		
@@ -145,6 +194,10 @@ public class LunchMainView extends JFrame{
 		jbtAddLunch.addActionListener(lmc);
 		jbtCalcOrder.addActionListener(lmc);
 		jcbMonth.addActionListener(lmc);
+		
+		
+		jmOrderRemove.addActionListener(lmc);
+		jmOrderStratus.addActionListener(lmc);
 		
 		setBounds(100,100,800,600);
 		setVisible(true);
@@ -244,5 +297,15 @@ public class LunchMainView extends JFrame{
 	public DefaultComboBoxModel<Integer> getCbmDay() {
 		return cbmDay;
 	}
+	public JPopupMenu getJpOrderMenu() {
+		return jpOrderMenu;
+	}
+	public JMenuItem getJmOrderRemove() {
+		return jmOrderRemove;
+	}
+	public JMenuItem getJmOrderStratus() {
+		return jmOrderStratus;
+	}
+	
 	
 }//class
