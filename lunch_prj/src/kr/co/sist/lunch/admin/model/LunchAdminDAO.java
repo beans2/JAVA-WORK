@@ -379,7 +379,73 @@ public class LunchAdminDAO {
 			
 		}
 		return list;
-	}
+	}//selectOrderList
+	
+	/**
+	 * 도시락 제작 완료 시점에 호출되어 해당 주문 도시락의 완성 상태를 변경하는 일.
+	 * @param orderNum
+	 * @return
+	 */
+	public boolean updateStatus(String orderNum)throws SQLException{
+		boolean flag = false;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			//1.
+			//2.
+			con = getConn();
+			//3.
+			String updateOrder = "update ordering set status='Y' where order_num=?";
+			pstmt = con.prepareStatement(updateOrder);
+			//4.
+			pstmt.setString(1, orderNum);
+			//5.
+			int cnt = pstmt.executeUpdate();
+			if(cnt==1) {
+				flag=true;
+			}//end if
+		}finally {
+			//6.
+			if(pstmt!= null) {pstmt.close();}
+			if(con!= null) {con.close();}
+		}
+		
+		return flag;
+	}//updateStatus
+	
+	/**
+	 * 주문된 도시락을 삭제하는 일.
+	 * @param orderNum
+	 * @return
+	 */
+	public boolean deleteOrder(String orderNum)throws SQLException {
+		boolean flag = false;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			//1.
+			//2.
+			con = getConn();
+			//3.
+			String deleteOrder = "delete from ordering where order_num=?";
+			pstmt = con.prepareStatement(deleteOrder);
+			//4.
+			pstmt.setString(1, orderNum);
+			//5.
+			int cnt = pstmt.executeUpdate();
+			if(cnt==1) {
+				flag=true;
+			}//end if
+		}finally {
+			//6.
+			if(pstmt!= null) {pstmt.close();}
+			if(con!= null) {con.close();}
+		}
+
+		return flag;
+	}//deleteOrder
+	
+	
 	
 	public static void main(String[] args) {
 		try {
