@@ -16,7 +16,6 @@ import kr.co.sist.lunch.admin.vo.LunchDetailVO;
 import kr.co.sist.lunch.admin.vo.LunchUpdateVO;
 import kr.co.sist.lunch.admin.vo.LunchVO;
 import kr.co.sist.lunch.admin.vo.OrderVO;
-import kr.co.sist.lunch.user.vo.OrderListVO;
 
 public class LunchAdminDAO {
 	
@@ -348,12 +347,11 @@ public class LunchAdminDAO {
 		StringBuilder selectOrder =new StringBuilder();
 		selectOrder
 		.append("	select o.order_num, l.lunch_code, l.lunch_name, o.order_name, o.quan	")
-		.append("	, l.price*o.quan price, to_char(o.order_date,'yyyy=mm-dd hh:mi:ss') order_date, o.phone, o.ip_address, o.status	")
+		.append("	, l.price*o.quan price, to_char(o.order_date,'yyyy-mm-dd hh:mi:ss') order_date, o.phone, o.ip_address, o.status	")
 		.append("	from  lunch l, ordering o	")
 		.append("	where o.lunch_code = l.lunch_code	")
-//		.append("		and to_char(order_date, 'yyyy-mm-dd')= to_char(sysdate,'yyyy-mm-dd')	")
-		.append("		and to_char(order_date, 'yyyy-mm-dd')= '2019-01-15'	")
-		.append("		and to_char(order_date,'hh24')<=13	")
+		.append("		and to_char(order_date, 'yyyy-mm-dd')= to_char(sysdate,'yyyy-mm-dd')	")
+//		.append("		and to_char(order_date,'hh24')<=13	")
 		.append("		order by o.order_num	");
 		
 		pstmt = con.prepareStatement(selectOrder.toString());

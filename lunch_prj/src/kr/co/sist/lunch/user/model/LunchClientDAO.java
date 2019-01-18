@@ -8,8 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import kr.co.sist.lunch.user.vo.LunchDetailVO;
 import kr.co.sist.lunch.user.vo.LunchListVO;
+import kr.co.sist.lunch.user.vo.OrderAddVO;
 
 /**
  * 도시락 주문자에 대한 DB처리
@@ -117,7 +119,35 @@ public class LunchClientDAO {
 		
 		
 		return ldvo;
+		
 	}//selectDetailLunch
+	
+	public void insertOrder(OrderAddVO oavo)throws SQLException{
+		
+		Connection con =null;
+		PreparedStatement pstmt = null;
+		try {
+		//1.
+		//2.
+			con= getConn();
+		//3.
+			String insertOrder = "insert into ordering(order_num, quan, order_name, phone, ip_address, lunch_code) values(order_code,?,?,?,?,?)";
+			pstmt = con.prepareStatement(insertOrder);
+		//4.
+			pstmt.setInt(1, oavo.getQuan());
+			pstmt.setString(2, oavo.getOrderName());
+			pstmt.setString(3, oavo.getPhone());
+			pstmt.setString(4, oavo.getIpAddress());
+			pstmt.setString(5, oavo.getLunchCode());
+		//5.
+			int cnt = pstmt.executeUpdate();
+			
+		}finally {
+			//6.
+			if(pstmt!=null) {pstmt.close();}
+			if(con!=null) {con.close();}
+		}
+	}
 	
 	public static void main(String[] args) {
 		try {
