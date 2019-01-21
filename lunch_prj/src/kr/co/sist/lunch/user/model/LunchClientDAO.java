@@ -1,5 +1,6 @@
 package kr.co.sist.lunch.user.model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +13,9 @@ import java.util.List;
 import kr.co.sist.lunch.user.vo.LunchDetailVO;
 import kr.co.sist.lunch.user.vo.LunchListVO;
 import kr.co.sist.lunch.user.vo.OrderAddVO;
+import kr.co.sist.lunch.user.vo.OrderInfoVO;
+import kr.co.sist.lunch.user.vo.OrderListVO;
+import oracle.jdbc.OracleTypes;
 
 /**
  * 도시락 주문자에 대한 DB처리
@@ -140,7 +144,7 @@ public class LunchClientDAO {
 			pstmt.setString(4, oavo.getIpAddress());
 			pstmt.setString(5, oavo.getLunchCode());
 		//5.
-			int cnt = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
 		}finally {
 			//6.
@@ -149,13 +153,47 @@ public class LunchClientDAO {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public List<OrderListVO> selectOrderList(OrderInfoVO oivo)throws SQLException{
+		List<OrderListVO> list = new ArrayList<OrderListVO>();
+		Connection con =null;
+		CallableStatement cstmt = null;
+		ResultSet rs = null;
+		
 		try {
-			System.out.println(LunchClientDAO.getInstance().selectDetailLunch("L_000002"));
-		} catch (SQLException e) {
-			e.printStackTrace();
+		//1.
+		//2.
+			con= getConn();
+		//3.
+			cstmt = con.prepareCall("{ call lunch_order_select(?,?,?) } ");
+		//4.
+			//in parameter
+			cstmt.setString(1, oivo.getOrderName());
+			cstmt.setString(2, oivo.getOrderTel());
+			
+			//out parameter
+			cstmt.registerOutParameter(3, OracleTypes.CURSOR);
+			
+		//5. 쿼리실행(프로시져 실행)
+			cstmt.execute();
+			//out parameter에 저장된 값 얻기
+			rs  = (ResultSet)cstmt.getObject(3);
+			
+			OrderListVO olvo = null;
+			
+			while(rs.next()) {
+				olvo = new OrderListVO(rs.getString("lunch_name"), rs.getString("order_date"),rs.getInt("quan"));
+				list.add(olvo);
+			}
+			
+		}finally {
+			//6.
+			if(rs!=null) {rs.close();}
+			if(cstmt!=null) {cstmt.close();}
+			if(con!=null) {con.close();}
 		}
-	}
+		
+		return list;
+	}//selesctOrderList
 	
 	
 }//class

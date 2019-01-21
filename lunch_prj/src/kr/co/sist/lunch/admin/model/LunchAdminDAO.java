@@ -302,6 +302,7 @@ public class LunchAdminDAO {
 			.append("	from lunch l ,ordering o	")
 			.append("	where o.lunch_code = l.lunch_code	")
 			.append("		and to_char(o.order_date,'yyyy-mm-dd')= to_char(to_date( ? ,'yyyy-mm-dd'), 'yyyy-mm-dd')	")
+			.append("	and o.status ='Y'	"	)
 			.append("	group by l.lunch_name, l.lunch_code, l.price	")
 			.append("	order by l.lunch_code	 ");
 		//4.
@@ -374,7 +375,6 @@ public class LunchAdminDAO {
 			if(rs!=null) {rs.close();}
 			if(pstmt!=null) {pstmt.close();}
 			if(con!=null) {con.close();}
-			
 		}
 		return list;
 	}//selectOrderList

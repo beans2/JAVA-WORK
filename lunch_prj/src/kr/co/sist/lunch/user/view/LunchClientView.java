@@ -52,7 +52,7 @@ public class LunchClientView extends JFrame {
 		jtLunch.setRowHeight(110);
 		
 		//주문현황
-		String[] orderColumns = {"번호","도시락명","수량","주문일자"};
+		String[] orderColumns = {"번호","도시락명","주문일자","수량"};
 		dtmOrderList = new DefaultTableModel(orderColumns, 4){
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -60,6 +60,13 @@ public class LunchClientView extends JFrame {
 			}
 		};
 		jtOrder = new JTable(dtmOrderList);
+		
+		jtOrder.getColumnModel().getColumn(0).setPreferredWidth(100);
+		jtOrder.getColumnModel().getColumn(1).setPreferredWidth(250);
+		jtOrder.getColumnModel().getColumn(2).setPreferredWidth(350);
+		jtOrder.getColumnModel().getColumn(3).setPreferredWidth(100);
+		
+		jtOrder.setRowHeight(25);
 		
 		jtfName = new JTextField(10);
 		jtfTel = new JTextField(10);
@@ -94,6 +101,11 @@ public class LunchClientView extends JFrame {
 		
 		jtLunch.addMouseListener(lcc);
 		jbtSearch.addActionListener(lcc);
+		
+		jtfName.addActionListener(lcc);
+		jtfTel.addActionListener(lcc);
+		
+		jtp.addMouseListener(lcc);
 		
 		add("Center", jtp);
 		setBounds(100,100,800,600);
