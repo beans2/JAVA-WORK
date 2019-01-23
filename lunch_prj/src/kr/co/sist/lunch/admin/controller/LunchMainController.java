@@ -9,7 +9,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -38,6 +40,8 @@ public class LunchMainController extends WindowAdapter implements ActionListener
 	private String lunchName;
 	private int selectedRow;
 	private Thread threadOrdering;
+	private boolean reqeustFlag =false;
+	private Map<String, String> requestFlagMap = new HashMap<String, String>();
 	
 	public LunchMainController(LunchMainView lmv) {
 		this.lmv = lmv;
@@ -190,26 +194,37 @@ public class LunchMainController extends WindowAdapter implements ActionListener
 		if(ae.getSource()==lmv.getJmOrderStratus()) {
 			//제작상태가 'N'인 상태에서만 동작
 			JTable jt= lmv.getJtOrder();
+			if(!reqeustFlag){
+				requestFlagMap.put(orderNum, "N");
+			}
+			if(reqeustFlag) {
+				requestFlagMap.put(orderNum, "Y");
+				reqeustFlag = false;
+			}
+			System.out.println(requestFlagMap);
 			if(((String)jt.getValueAt(selectedRow, 10)).equals("N")) {
-				
-				switch(JOptionPane.showConfirmDialog(lmv, "[" +orderNum+lunchName+" ] 주문이 완료되었습니까?")) {
-				case JOptionPane.OK_OPTION:
-					//DB Table의 해당 레코드 변경
-					try {
-						if(la_dao.updateStatus(orderNum)) { //상태변환 성공
-							jt.setValueAt("Y", selectedRow, 10); //J테이블의 값만 변경
-						
-							JOptionPane.showMessageDialog(lmv, "도시락 제작이 완료되었습니다");
-							
-							
-						}else { //상태변환 실패
-							JOptionPane.showMessageDialog(lmv, "도시락 제작상태 변환이 실패!!");
-						}//end else
-					} catch (SQLException e) {
-						JOptionPane.showMessageDialog(lmv, "DB에서 문제 발생.......");
-						e.printStackTrace();
-					}//end catch
-				}//end switch
+				if(requestFlagMap.get(orderNum).equals("Y")) {
+					switch(JOptionPane.showConfirmDialog(lmv, "[" +orderNum+lunchName+" ] 주문이 완료되었습니까?")) {
+					case JOptionPane.OK_OPTION:
+						//DB Table의 해당 레코드 변경
+						try {
+							if(la_dao.updateStatus(orderNum)) { //상태변환 성공
+								jt.setValueAt("Y", selectedRow, 10); //J테이블의 값만 변경
+								
+								JOptionPane.showMessageDialog(lmv, "도시락 제작이 완료되었습니다");
+								
+								
+							}else { //상태변환 실패
+								JOptionPane.showMessageDialog(lmv, "도시락 제작상태 변환이 실패!!");
+							}//end else
+						} catch (SQLException e) {
+							JOptionPane.showMessageDialog(lmv, "DB에서 문제 발생.......");
+							e.printStackTrace();
+						}//end catch
+					}//end switch
+				}else {
+					JOptionPane.showMessageDialog(lmv,"요청사항을 먼저 확인하세요.");
+				}
 			}else {
 				JOptionPane.showMessageDialog(lmv, "이미 제작이 완료된 도시락입니다.");
 			}//end else
@@ -277,6 +292,7 @@ public class LunchMainController extends WindowAdapter implements ActionListener
 	
 	@Override
 	public void mouseClicked(MouseEvent me) {
+		
 		if(me.getSource()==lmv.getJtb()) {
 			if(lmv.getJtb().getSelectedIndex()==1) { //두번째 탭에서 이벤트 발생
 				//주문현황을 계속 조회하여 실시간으로 DB를 조회하여 주문현황을 갱신
@@ -303,10 +319,6 @@ public class LunchMainController extends WindowAdapter implements ActionListener
 	        selectedRow=r;
 			
 			
-//			if(row ==-1) {
-//				JOptionPane.showMessageDialog(lmv, "작업할 행을 먼저 선택해주세요.");
-//				return;
-//			}//end if
 			JPopupMenu jp = lmv.getJpOrderMenu();
 			jp.setLocation(me.getXOnScreen(),me.getYOnScreen());
 			jp.setVisible(true);
@@ -314,6 +326,7 @@ public class LunchMainController extends WindowAdapter implements ActionListener
 			orderNum = (String)jt.getValueAt(jt.getSelectedRow(), 1);
 			lunchName = (String)jt.getValueAt(jt.getSelectedRow(), 3)+" "+
 							(String)jt.getValueAt(jt.getSelectedRow(), 4);
+			
 					
 		}else {
 			JPopupMenu jp = lmv.getJpOrderMenu();
@@ -335,6 +348,20 @@ public class LunchMainController extends WindowAdapter implements ActionListener
 					se.printStackTrace();
 				}
 			}//end if
+			
+			if(me.getSource()==lmv.getJtOrder()) {
+				
+				StringBuilder orderRequest = new StringBuilder();
+				JTable jt = lmv.getJtOrder();
+				orderNum = (String)jt.getValueAt(jt.getSelectedRow(), 1);
+				try {
+					orderRequest.append("요청사항: \n").append(LunchAdminDAO.getInstance().selectOrderRequest(orderNum));
+					JOptionPane.showMessageDialog(lmv,orderRequest);
+					reqeustFlag=true;
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 			
 		}
 	}//mouseClicked

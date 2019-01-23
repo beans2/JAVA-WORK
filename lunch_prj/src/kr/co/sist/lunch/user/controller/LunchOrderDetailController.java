@@ -123,7 +123,7 @@ public class LunchOrderDetailController extends WindowAdapter implements ActionL
 			try {
 			OrderAddVO oavo = new OrderAddVO(lodv.getJtfOrderName().getText(), 
 				lodv.getJtfPhone().getText(), InetAddress.getLocalHost().getHostAddress(),
-				lunchCode, lodv.getJbQuan().getSelectedIndex()+1);
+				lunchCode, lodv.getJbQuan().getSelectedIndex()+1, lodv.getJtaRequest().getText());
 
 				LunchClientDAO.getInstance().insertOrder(oavo);
 				showMessageDialog(lodv, "도시락 주문이 완료 되었습니다. \n 항상 최선을 다하겠습니다.\n 감사합니다.");

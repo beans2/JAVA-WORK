@@ -195,7 +195,6 @@ public class LunchMainView extends JFrame{
 		jbtCalcOrder.addActionListener(lmc);
 		jcbMonth.addActionListener(lmc);
 		
-		
 		jmOrderRemove.addActionListener(lmc);
 		jmOrderStratus.addActionListener(lmc);
 		

@@ -333,6 +333,39 @@ public class LunchAdminDAO {
 	 * @return
 	 * @throws SQLException
 	 */
+	public String selectOrderRequest(String orderNum) throws SQLException{
+		String request = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String requestOrder = "";
+		
+		try {
+			//1.
+			//2.
+			con = getConn();
+			//3.
+			requestOrder = ("select order_request from ordering where order_num = ?");
+			
+			pstmt = con.prepareStatement(requestOrder);
+			pstmt.setString(1, orderNum);
+			//4.
+	//		pstmt.setString(1, );
+			//5.
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				request = rs.getString("order_request");
+			}
+		}finally {
+			//6.
+			if(rs!=null) {rs.close();}
+			if(pstmt!=null) {pstmt.close();}
+			if(con!=null) {con.close();}
+		}
+		return request;
+	}
+	
 	public List<OrderVO> selectOrderList() throws SQLException{
 		List<OrderVO> list =new ArrayList<OrderVO>();
 		
@@ -366,7 +399,7 @@ public class LunchAdminDAO {
 		while(rs.next()) {
 			ovo = new OrderVO(rs.getString("order_num"), rs.getString("lunch_code"), rs.getString("lunch_name"), 
 					rs.getString("order_name"), rs.getString("order_date"), rs.getString("phone"), 
-					rs.getString("ip_address"), rs.getString("status"), rs.getInt("quan"), rs.getInt("price"));
+					rs.getString("ip_address"), rs.getString("status"),rs.getInt("quan"), rs.getInt("price"));
 			list.add(ovo);
 		}//end while
 		
@@ -447,7 +480,7 @@ public class LunchAdminDAO {
 	
 	public static void main(String[] args) {
 		try {
-			System.out.println(getInstance().selectOrderList());
+			System.out.println(getInstance().selectOrderRequest("OR_000000051"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
