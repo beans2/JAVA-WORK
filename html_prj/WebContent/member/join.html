@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="join.jsp">
+	<table border="1" cellspacing="0">
+		<tr>
+			<td colspan="2" width="430" align="center">회원가입</td>
+		</tr>
+		<tr>
+			<td >아이디</td>
+			<td><input type="text" name=test" readonly = "readonly" size="30">
+			<input type="button" name="button" value="중복확인"></td>
+		</tr>
+		<tr>
+			<td >비밀번호</td>
+			<td><input type="password" size="30"></td>
+		</tr>
+		<tr>
+			<td >비밀번호 확인</td>
+			<td><input type="password" size="30"></td>
+		</tr>
+		<tr>
+			<td >이름</td>
+			<td><input type="text" size="30"></td>
+		</tr>
+		<tr>
+			<td >주민번호</td>
+			<td>
+			<input type="text" size="6">
+			<label>-</label>
+			<input type="password" size="7">
+			</td>
+		</tr>
+		<tr>
+			<td >주민번호</td>
+			<td><input type="text" size="6"></td>
+		</tr>
+		<tr>
+			<td >성별</td>
+			<td>
+			<input type="radio" value="남자" name="gender">남자
+			<input type="radio" value="여자" name="gender">여자
+			</td>
+		</tr>
+		<tr>
+			<td >생년월일</td>
+			<td>
+			<select name="year">
+				<option value="2019">2019
+				<option value="2018">2018
+				<option value="2017">2017
+			</select>
+			<select name="month">
+				<option value="1">1
+				<option value="2">2
+				<option value="3">3
+				<option value="4">4
+				<option value="5">5
+				<option value="6">6
+				<option value="7">7
+				<option value="8">8
+				<option value="9">9
+				<option value="10">10
+				<option value="11">11
+				<option value="12">12
+			</select>
+			<select name="day">
+				<option value="1">1
+				<option value="2">2
+				<option value="3">3
+				<option value="4">4
+				<option value="5">5
+				<option value="6">6
+				<option value="7">7
+				<option value="8">8
+				<option value="9">9
+				<option value="10">10
+				<option value="11">11
+				<option value="12">12
+				<option value="13">13
+				<option value="14">14
+				<option value="15">15
+				<option value="16">16
+				<option value="17">17
+				<option value="18">18
+				<option value="19">19
+				<option value="20">20
+				<option value="21">21
+				<option value="22">22
+				<option value="23">23
+				<option value="24">24
+				<option value="25">25
+				<option value="26">26
+				<option value="27">27
+				<option value="28">28
+				<option value="29">29
+				<option value="30">30
+				<option value="31">31
+			</select>
+			</td>
+		</tr>
+		<tr>
+			<td >나이</td>
+			<td>
+			<input type="text" size="3">
+			</td>
+		</tr>
+		<tr>
+			<td >관심언어</td>
+			<td>
+			<input type="checkbox" value="Java" name="lan">Java
+			<input type="checkbox" value="C/C++" name="lan">C/C++
+			<input type="checkbox" value="Python" name="lan">Python
+			<input type="checkbox" value="VB" name="lan">VB<br/>
+			<input type="checkbox" value="JSP name="lan">JSP
+			<input type="checkbox" value="Servlet" name="lan">Servlet &nbsp;
+			<input type="checkbox" value="ASP" name="lan">ASP
+			<input type="checkbox" value="PhP" name="lan">PhP
+			</td>
+		</tr>
+		<tr>
+			<td >결혼여부</td>
+			<td>
+			<input type="radio" value="미혼" name="merried" checked="checked">미혼
+			<input type="radio" value="기혼" name="merried" >기혼
+			</td>
+		</tr>
+		<tr>
+			<td >결혼기념일</td>
+			<td>
+			<input type="text" size="4">
+			<label>년</label>
+			<input type="text" size="4" >
+			<label>월</label>
+			<input type="text" size="4">
+			<label>일</label>
+			</td>
+		</tr>
+		<tr>
+			<td >우편번호</td>
+			<td>
+			<input type="text" size="4" readonly="readonly">
+			<label>-</label>
+			<input type="text" size="4" readonly="readonly" >
+			<input type="button" name="button" value="우편번호검색"></td>
+			</td>
+		</tr>
+		<tr>
+			<td >주소</td>
+			<td>
+			<input type="text" size="35" readonly="readonly">
+			</td>
+		</tr>
+		<tr>
+			<td >상세주소</td>
+			<td>
+			<input type="text" size="35" >
+			</td>
+		</tr>
+		<tr>
+			<td >가입인사</td>
+			<td>
+			<textarea rows="5" cols="30" name="ta" style=overflow:scroll></textarea>
+			<img src="http://211.63.89.157:8080/html_prj/common/images/ezgif.com-resize.gif">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+			<input type="submit" value=" 가입" >
+			<input type="reset" value=" 초기화">
+			
+			</td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>
