@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>넓이, 높이, 바닥색, 테두리선</title>
+<style type="text/css">
+	div{background-color: #E8ECF8}
+	/* 넓이가 설정되면 web browser의 크기가 변경되더라도 안의 데이터가 움직이지 않는다. */
+	.width{width: 500px}
+	.height{height: 40px}
+	.background{background-color: #FAE100}
+/* 선의 종류: solid-실선, dotted: 점선, dashed- 긴점선, double -이중선(3px 이상부터 이중선이된다.) */
+	.border{margin-top: 10px;border: 4px double #333  }
+	input{background-color: #FAE100;width: 120px;height:40px}
+	#left{border-left:2px solid #333}
+	#right{border-right:2px solid #333}
+	#top{border-top:2px solid #333}
+	#bottom{border-bottom:2px solid #333}
+	/* table의 셀간 간격 조절:  border-spacing: 셀간 간격px*/
+/* 	table {border: 0px; border-spacing: 0px}
+	th,td{border: 1px solid #FAE100} */
+	
+	.num{width:40px}
+	.name{width:120px}
+	.favorite{width:300px}
+	
+	table {border: 0px; border-spacing: 0px;margin:0px auto; witdh: 1000px}
+	td:hover{background-color: #F3F3F3;text-decoration: underline; font-weight:bold}
+	th{border-top:2px solid #3C4790; border-bottom:1px solid #3C4790; height: 40px}
+	td{text-align:center;border-top:1px solid #EEEEEE; border-bottom:1px solid #EEEEEE; height: 20px;background-color: }
+	.mid{text-align:left; vertical-align: middle }
+	.num2{width:60px}
+	.sub{width:700px}
+	.name2{width:100px}
+	.date{width:60px}
+	.view{width:60px}
+	.good{width:60px}
+	label{color: #0000FF}
+	
+</style>
+</head>
+<body>
+<!-- <div class="width">넓이</div>
+<div class="height">높이</div>
+<div class="background">바닥색</div>
+<div class="border">테두리선</div>
+<input type="text"/>
+<div id="left">왼쪽선</div>
+<div id="right">오른선</div>
+<div id="top">윗선</div>
+<div id= "bottom">아랫선</div>
+ -->
+<!-- <table>
+<tr>
+	<th class="num">번호</th><th class="name">이름</th><th class="favorite">좋아하는 것</th>
+</tr>
+<tr>
+	<td>1</td><td>공선의</td><td>돈</td>
+</tr>
+<tr>
+	<td>2</td><td>이재현</td><td>게임</td>
+</tr>
+<tr>
+	<td>3</td><td>김정윤</td><td>철권</td>
+</tr>
+</table> -->
+
+<table >
+	<tr>
+		<th class="num2">번호</th><th class="sub">제목</th><th class="name2">글쓴이</th><th class="date">날짜</th><th class="view">조회</th><th class="good">추천</th>
+	</tr>
+	<tr>
+		<td>설문</td>
+		<td class="mid"><img src="http://211.63.89.157:8080/html_prj/common/images/dcimg.PNG">동생그룹 중 가장 성공할 것 같은 그룹은?</td>
+		<td>운영자</td><td>19/01/29</td><td> - </td><td> - </td>
+	</tr>
+	<tr>
+		<td>공지</td>
+		<td class="mid" id="hit"><img src="http://211.63.89.157:8080/html_prj/common/images/dcimg2.PNG"><label>2013년 1월 1일부터 힛갤에 선정되신 분들께 기념품을 드립니다.</label> [192]</td>
+		<td>운영자</td><td>13/01/11</td><td> 485180 </td><td> 267 </td>
+	</tr>
+	<tr>
+		<td>공지</td>
+		<td class="mid"><img src="http://211.63.89.157:8080/html_prj/common/images/dcimg2.PNG">힛갤에 등록된 게시물은 방송에 함께 노출될 수 있습니다. [323/1]</td>
+		<td>운영자</td><td>10/05/18</td><td> 23423 </td><td> 84 </td>
+	</tr>
+	<tr>
+		<td>15043</td>
+		<td class="mid"><img src="http://211.63.89.157:8080/html_prj/common/images/dcimg3.PNG">내가정돌하는것들ㅋㅋㅋ[374]</td>
+		<td>PGD-727</td><td>01/30</td><td> 432322 </td><td> 3432 </td>
+	</tr>
+	<tr>
+		<td>15042</td>
+		<td class="mid"><img src="http://211.63.89.157:8080/html_prj/common/images/dcimg3.PNG">드디어 그래픽카드를 새로 사버렸군? ㅋㅋㅋ 기분이 엄청 째져버리는데ㅋㅋ? [1186/1]</td>
+		<td>키프나(59.5)</td><td>01/30</td><td> 432434 </td><td> 1961 </td>
+	</tr>
+	<tr>
+		<td>15041</td>
+		<td class="mid"><img src="http://211.63.89.157:8080/html_prj/common/images/dcimg3.PNG">사과씨로 ,사과 나무 만들어봅시당 외 다수 [435]</td><td>ㅇㅇ(125.182)</td>
+		<td>01/30</td><td> 57834 </td><td> 132 </td>
+	</tr>
+</table>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
