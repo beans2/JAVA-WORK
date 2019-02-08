@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"  href="http://localhost:8080/html_prj/common/css/main_v190130.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+
+
+	var jo = new Array();
+	jo[0] = new Array();
+	jo[1] = new Array();
+	jo[2] = new Array();
+	
+
+	
+	jo[0][0]="이재찬";
+	jo[0][1]="이봉현";
+	jo[0][2]="박은영";
+	jo[0][3]="백인재";
+	jo[0][4]="김민정";
+	jo[0][5]="김정운";
+	jo[0][6]="정택성";
+	
+	jo[1][0]="박영민";
+	jo[1][1]="김정윤";
+	jo[1][2]="김희철";
+	jo[1][3]="이지수";
+	jo[1][4]="박소영";
+	jo[1][5]="노진경";
+	jo[1][6]="최지우";
+	
+	jo[2][0]="공선의";
+	jo[2][1]="오영근";
+	jo[2][2]="김건하";
+	jo[2][3]="박정미";
+	jo[2][4]="최혜원";
+	jo[2][5]="이재현";
+	jo[2][6]="깍두기";
+	
+	var name = prompt("이름입력","이재찬");
+	
+	for(var i=0; i<jo.length;i++){
+		for(var j=0; j<jo[0].length;j++){
+			if(name==jo[i][j]){
+				document.write("입력: "+ name+"<br/>");
+				document.write("조: "+ (i+1)+"<br/>");
+				document.write("구성원: ");
+				document.write("<select >");
+				for(var k=0; k<jo[0].length;k++){
+					document.write("<option>"+jo[i][k]+"</option>");
+				}
+				document.write("</select>");
+			}			
+		}
+	}
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

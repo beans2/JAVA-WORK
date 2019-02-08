@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"  href="http://localhost:8080/html_prj/common/css/main_v190130.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+	var i=1;
+	while(i<7){
+		document.write("<h"+i+">");
+		document.write("<marquee scrollamount='13'>금욜</marquee>");
+		document.write("</h"+i+">");
+		i++;
+	}
+	
+	var j=0;
+	do{
+		//5점에 체크된 상태로 라디오버튼을 제공
+		if(j==5){
+			document.write("<input type='radio' name='group' value='"+j+"'checked  ='checked'>"+j+"점&nbsp;");
+		}else{
+			document.write("<input type='radio' name='group' value='"+j+"'>"+j+"점&nbsp;");
+		}
+		j++;
+	}while(j<11);
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>
