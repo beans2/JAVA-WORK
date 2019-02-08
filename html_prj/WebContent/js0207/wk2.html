@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"  href="http://localhost:8080/html_prj/common/css/main_v190130.css">
+<style type="text/css">
+	table{width:600px; height:200px;box-shadow: 10px 10px 10px #333}
+
+</style>
+<script type="text/javascript">
+	var language =prompt("언어입력","Java");
+	var Img="";
+	var Name="";
+	var Year="";
+	var Age="";
+	if(language=="Java"||language=="HTML"||language=="JavaScript"||language=="CSS"){
+		if(language=="Java"){
+			img="../common/images/javaImg.jpg";
+			name="고슬링";
+			year="1955";
+			age="70";
+		}else if(language=="HTML"){
+			img="../common/images/htmlImg.jpg";
+			name="팀버너스리";
+			year="1955";
+			age="80";
+		}else if(language=="JavaScript"){
+			img="../common/images/javaScriptImg.jpg";
+			name="브랜든 아이크";
+			year="1961";
+			age="57";
+		}else if(language=="CSS"){
+			img="../common/images/CssImg.jpg";
+			name="하콤 비움 리";
+			year="1994";
+			age="27";
+		}
+		document.write("<div><table border='2px' cellspacing='0px'><tr><th rowspan='3'>'"+"<img src='"+img+"'>"+"'</th><th>이름</th><th>'"+name+
+			"'</th></tr><tr><td>태어난해</td><td>'"+year+"'</td></tr><tr><td>나이</td><td>'"+age+"'</td></tr></table></div>");
+	}else{
+		alert("언어를 잘못 입력하였습니다.");
+	}
+</script>
+</head>
+<body>
+<!-- 	<div>
+		<table border="2px" cellspacing="0px">
+			<tr>
+				<th rowspan="3">'img'</th>
+				<th>이름</th>
+				<th>이름</th>
+			</tr>
+			<tr>
+				<td>태어난해</td>
+				<td>'year'</td>
+			</tr>
+			<tr>
+				<td>나이</td>
+				<td>'age'</td>
+			</tr>
+		</table>
+	</div> -->
+</body>
+</html>

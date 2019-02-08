@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"  href="http://localhost:8080/html_prj/common/css/main_v190130.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+	//한줄주석	
+	/*
+	여러줄주석 
+	*/
+	/*
+		연산자
+		최단산쉬관리삼대콤마
+	*/
+	/*
+		최우선
+		1. 단항
+		2. 산술
+		3. 쉬프트
+		4. 관계
+		5. 논리
+		6. 삼항
+		7. 대입
+		8. 콤마
+		마지막
+	*/		
+	var num1=2;
+	var num2=-2;
+	//window는 최상위객체로 생략하여 사용할 수 있다.
+	document.write("<ul>");
+	document.write("<li> 할당된 값: "+ num1+"</li> ");
+	//~양수: 부호가 변경되고 1증가
+	//0010(2) -> 1110(-3) 
+	document.write("~<li>: "+ (~num1)+"</li> ");
+	//~음수: 부호가 변경되고 1감소
+	document.write("~<li> : "+ (~num2)+"</li> ");
+	
+	
+	//++증가
+	num1++;//후위
+	++num1;//전위
+	
+	document.write("<li> 증가연산 후"+ (num1)+"</li> ");
+	
+	num1--;//후위
+	--num1;//전위
+	
+	document.write("<li> 감소연산 후"+ (num1)+"</li> ");
+	//대입 연산자와 함께 사용되거나, 함수의 인수값으로 넣어줄 때에는 전위와  후위가 
+	//다른 값을 할당한다.
+	var result=0;
+	//전위: 내것먼저
+	
+	result = ++num1;
+	document.write("<li> 전위 연산 후: result = "+result+", num1= "+num1+"</li> ");
+	//후위: 남의 것 먼저
+	result=0;
+	result = num1++;
+	document.write("<li> 전위 연산 후: result = "+result+", num1= "+ num1+"</li> ");
+	
+	//산술연산 
+	
+	//관계연산
+	num1="2";
+	num2=2;
+	document.write("<li><strong>관계연산</strong></li>");
+	//데이터형이 달라도 값이 같다면true
+	document.write("<li>"+num1+"=="+num2+"="+(num1==num2)+"</li>");
+	//데이터형과 값이 모두 같은지
+	document.write("<li>"+num1+"==="+num2+"="+(num1===num2)+"</li>");
+	
+	document.write("</ul>");
+		
+	num1=21; //10101
+	num2=18; //10010
+	
+	document.write("<li><strong>비트 논리연산</strong></li>");
+	document.write("<li>"+num1+"&"+num2+"="+(10101&10010)+"</li>");
+	document.write("<li>"+num1+"|"+num2+"="+(10101|10010)+"</li>");
+	document.write("<li>"+num1+"^"+num2+"="+(10101^10010)+"</li>");
+	
+	msg1 = "메시지다";
+	window.onload= function() {
+		var obj = document.getElementById("id");
+		alert(obj+"의 데이터형"+typeof(obj));
+	}//function
+	
+	//변수를 선언하지 않고 사용한 경우 : undefined
+	alert("변수를 선언하지 않고 사용하면"+ typeof(msg2));
+	//수가 아닌 값을 연산하면 NaN
+	alert("msg1/2"+(msg1/2));
+	
+	
+</script>
+</head>
+<body>
+<input type = "text" id="id">
+
+</body>
+</html>

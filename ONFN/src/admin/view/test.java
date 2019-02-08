@@ -60,41 +60,52 @@ public class test extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JLabel label = new JLabel("\uC544\uC774\uB514");
-		label.setBounds(27, 200, 40, 30);
+		label.setBounds(12, 209, 40, 30);
 		getContentPane().add(label);
 		
 		textField = new JTextField();
-		textField.setBounds(91, 200, 232, 30);
+		textField.setBounds(77, 210, 207, 30);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel label_1 = new JLabel("\uBE44\uBC00\uBC88\uD638");
-		label_1.setBounds(27, 250, 50, 30);
+		label_1.setBounds(12, 250, 50, 30);
 		getContentPane().add(label_1);
 		
 		JButton btnNewButton = new JButton("\uB85C\uADF8\uC778");
-		btnNewButton.setBounds(335, 200, 94, 79);
+		btnNewButton.setBounds(295, 209, 69, 71);
 		getContentPane().add(btnNewButton);
 		
 		textField_1 = new JTextField();
+		textField_1.setBounds(77, 251, 207, 30);
 		textField_1.setColumns(10);
-		textField_1.setBounds(91, 250, 232, 30);
 		getContentPane().add(textField_1);
 		
 		JLabel lblNewLabel = new JLabel("\uD68C\uC6D0\uAC00\uC785");
+		lblNewLabel.setBounds(160, 301, 50, 15);
 		lblNewLabel.setForeground(Color.BLUE);
-		lblNewLabel.setBounds(221, 309, 50, 15);
 		getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("\uBE44\uBC00\uBC88\uD638\uAC00 \uAE30\uC5B5\uB098\uC9C0 \uC54A\uC73C\uC138\uC694?");
+		JLabel lblNewLabel_1 = new JLabel("\uC544\uC774\uB514 \uCC3E\uAE30");
+		lblNewLabel_1.setBounds(112, 314, 69, 15);
 		lblNewLabel_1.setForeground(Color.BLUE);
-		lblNewLabel_1.setBounds(168, 330, 180, 15);
 		getContentPane().add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\owner\\Desktop\\\uC640\uC6B0\uCC21\uAE0B.gif"));
-		lblNewLabel_2.setBounds(27, 10, 344, 177);
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setBounds(12, 10, 352, 180);
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\owner\\Desktop\\workthrow2.png"));
+		lblNewLabel_2.setForeground(Color.WHITE);
 		getContentPane().add(lblNewLabel_2);
+		
+		JLabel label_2 = new JLabel("\uBE44\uBC00\uBC88\uD638 \uCC3E\uAE30");
+		label_2.setBounds(192, 314, 92, 15);
+		label_2.setForeground(Color.BLUE);
+		getContentPane().add(label_2);
+		
+		JLabel label_3 = new JLabel("/");
+		label_3.setBounds(181, 314, 11, 15);
+		label_3.setForeground(Color.BLUE);
+		getContentPane().add(label_3);
 
 
 	}
