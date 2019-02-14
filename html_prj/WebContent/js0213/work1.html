@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"  href="http://localhost:8080/html_prj/common/css/main_v190130.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+	window.onload=function(){
+		var obj = document.changeFrm;
+		obj.input.focus();
+	}
+	
+	function lowerSelect() {
+		var obj = document.changeFrm;
+		var input= obj.input.value;
+		var output="";
+
+		output+=input.replace(/[A-Z0-9]/g,"");
+		document.getElementById("output").innerHTML = output;
+	}
+	function upperSelect() {
+		var obj = document.changeFrm;
+		var input= obj.input.value;
+		var output="";
+		
+		output+=input.replace(/[a-z0-9]/g,"");
+		document.getElementById("output").innerHTML = output;
+	}
+	function numSelect() {
+		var obj = document.changeFrm;
+		var input= obj.input.value;
+		var output="";
+		
+		output+=input.replace(/[A-Za-z]/g,"");
+		document.getElementById("output").innerHTML = output;
+	}
+</script>
+</head>
+<body>
+
+<div>
+	<form name="changeFrm">
+		<input type="text" name="input" class="inputBox" id="input" />
+		<input type="button" value="lower" class="btn" onclick="lowerSelect()"/> 
+		<input type="button" value="upper" class="btn" onclick="upperSelect()"/> 
+		<input type="button" value="number" class="btn" onclick="numSelect()"/> 
+	</form>
+<div id="output"></div>
+</div>
+
+</body>
+</html>
