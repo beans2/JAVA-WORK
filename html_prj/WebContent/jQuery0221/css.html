@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"  href="http://localhost:8080/html_prj/common/css/main_v190130.css">
+
+<style type="text/css">
+.class1{border: 5px solid #333;text-decoration: none; font-weight: normal;font-size: 10px;
+		color: #0000FF}
+.class2{ border: 2px solid #333; text-decoration: underline; font-weight: bold; font-size: 20px}
+</style>
+<!-- CDN을 사용하여 jQuery를 다운받아 사용 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#getAttr').click(function() {
+			var width=$("#a").css("width");
+			var height=$("#a").css("height");
+			var color=$("#a").css("background-color");
+			alert("넓이: "+width+"/높이: "+height+"/ 바닥색: "+color)
+		})
+		$("#setCss").click(function() {
+			$("#b").css("color","#FF0000")
+		})
+		$("#removeClass").click(function() {
+			$("#d").removeClass("class2")
+		})
+		$("#addClass").click(function() {
+			$("#c").addClass("class1") //기존 class가 설정되어있으면 변경되지 않을 수 있다.==>삭제 후 설정해야함
+		});		
+		$("#chain").click(function() {
+			$("#e").removeClass("class2").addClass("class1") 
+		});		
+		
+	});//ready
+</script>
+</head>
+<body>
+<div>
+<input type="button" value="style속성얻기" class="btn" id="getAttr">
+<input type="button" value="style속성하나 설정" class="btn" id="setCss">
+<input type="button" value="class 추가" class="btn" id="addClass">
+<input type="button" value="class 삭제" class="btn" id="removeClass">
+<input type="button" value="class 삭제 후 추가" class="btn" id="chain">
+</div>
+<div id="a"style="width: 500px; height: 50px; background-color: #dfdfdf ">속성얻는 DIV</div>
+<div id="b">속성설정하는 DIV</div>
+<div id="c" class="class2" >class를 추가하는 DIV</div>
+<div id="d" class="class2">class를 삭제하는 DIV</div>
+<div id="e" class="class2">class를 삭제 후 추가 DIV</div>
+</body>
+</html>
+
+
+
+
+
