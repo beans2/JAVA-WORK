@@ -28,13 +28,16 @@
 			vertical-align: bottom;}
 .diaryTd{width: 100px; height: 60px; border: 1px solid #CECECE;
 			text-align: right; vertical-align: top; font-size: 14px;font-weight: bold}
+			
 .blankTd{width: 100px; height: 60px; border: 1px solid #CECECE;
 			text-align: right; vertical-align: top; font-size: 14px;font-weight: bold;
 			color: #CCCCCC}
 .sunColor{font-size: 15px;color:#DC2E38 }			
 .weekColor{color:#222222}			
 .satColor{font-size: 15px;color:#618FFC }			
-#ohNulColor{font-size: 20px; background-color:#21FFFF }
+#ohNulColor{width: 100px; height: 60px; border: 1px solid #CECECE;
+			background-color:#FFFFD9;
+			text-align: right; vertical-align: top; font-size: 14px;font-weight: bold}
 			
 /* 달력 설정 끝 */
 </style>
@@ -211,9 +214,6 @@
 					cntStart++;
 				}
 				for(int blankTd=1;blankTd<cal.get(Calendar.DAY_OF_WEEK);blankTd++){
-					System.out.println(cal2.getActualMaximum(Calendar.DAY_OF_MONTH));
-					System.out.println(cal2.getActualMaximum(Calendar.DAY_OF_MONTH)+"/"+cntStart);
-					
 					if((nowMonth-1)!=0){
 						out.println("<td class='blankTd'>"+(nowMonth-1)+"/"+(cal2.getActualMaximum(Calendar.DAY_OF_MONTH)-cntStart)+"</td>");
 					}else{
@@ -240,8 +240,8 @@
 				dayId = "ohNulColor";//1번
 			}
 		%>
-			<td class="diaryTd">
-			<div><span class="${dayClass}" id=<%=dayId %>><%=tempDay %></span></div>
+			<td class="diaryTd" id=<%=dayId %>>
+			<div><span class="${dayClass}" ><%=tempDay %></span></div>
 			</td>
 		<%
 		dayId="";
