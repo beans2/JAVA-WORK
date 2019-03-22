@@ -77,7 +77,8 @@ public class DiaryDAO {
 			selectMonthData
 			.append(" select num,subject ")
 			.append(" from diary ")
-			.append(" where e_year=? and e_month=? and e_day=?");
+			.append(" where e_year=? and e_month=? and e_day=?")
+			.append(" order by num ");
 
 			pstmt= con.prepareStatement(selectMonthData.toString());
 			pstmt.setString(1, year);
@@ -161,6 +162,38 @@ public class DiaryDAO {
 	public DiaryDetailVO selectDetailEvent(int num)throws SQLException {
 		DiaryDetailVO dd_vo = null;
 		
+		Connection con= null;
+		PreparedStatement pstmt= null;
+		ResultSet rs= null;
+		
+		try {
+		//1.
+		//2.
+		//3.
+			con = getConn();
+		//4.
+			StringBuilder selectOneEvt= new StringBuilder();
+			selectOneEvt
+			.append(" select writer,subject,contents,to_char(w_date,'yyyy-mm-dd dy hh24:mi') w_date,ip ")
+			.append(" from diary ")
+			.append(" where num=? ");
+			
+			pstmt = con.prepareStatement(selectOneEvt.toString());
+			pstmt.setInt(1, num);
+		//5.
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dd_vo= new DiaryDetailVO(rs.getString("writer"), rs.getString("subject"), rs.getString("contents"), rs.getString("w_date"), rs.getString("ip"));
+			}//end if
+			
+		}finally {
+			//6.
+			if(rs!=null) {rs.close();}
+			if(pstmt!=null) {pstmt.close();}
+			if(con!=null) {con.close();}
+		}//end finally
+		
 		return dd_vo;
 	}//selectDetailEvent
 	
@@ -174,6 +207,33 @@ public class DiaryDAO {
 	public int updateEvent(DiaryUpdateVO du_vo)throws SQLException {
 		int cnt=0;
 		
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		
+		try {
+		//1.
+		//2.
+		//3.
+			con=getConn();
+		//4.
+			StringBuilder updateEvt = new StringBuilder();
+			updateEvt
+			.append(" update diary ")
+			.append(" set contents=? ")
+			.append(" where num=? and pass=? ");
+			pstmt= con.prepareStatement(updateEvt.toString());
+			
+			pstmt.setString(1, du_vo.getContents());
+			pstmt.setInt(2, du_vo.getNum());
+			pstmt.setString(3, du_vo.getPass());
+		//5.
+			cnt= pstmt.executeUpdate();
+			
+		}finally {
+			//6.
+			if(pstmt !=null) {pstmt.close();}//end if
+			if(con !=null) {con.close();}//end if
+		}//end finally
 		return cnt;
 	}//updateEvent
 	
@@ -185,9 +245,74 @@ public class DiaryDAO {
 	 */
 	public int delectEvent(DiaryRemoveVO dr_vo) throws SQLException{
 		int cnt=0;
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		
+		try {
+		//1.
+		//2.
+		//3.
+			con=getConn();
+		//4.
+			StringBuilder deleteEvt = new StringBuilder();
+			deleteEvt
+			.append(" delete from diary ")
+			.append(" where num=? and pass=? ");
+			pstmt= con.prepareStatement(deleteEvt.toString());
+			
+			pstmt.setInt(1, dr_vo.getNum());
+			pstmt.setString(2, dr_vo.getPass());
+		//5.
+			cnt= pstmt.executeUpdate();
+			
+		}finally {
+			//6.
+			if(pstmt !=null) {pstmt.close();}//end if
+			if(con !=null) {con.close();}//end if
+		}//end finally
+		return cnt;
+	}
+	public int selectEvtCnt(SearchDataVO sd_vo)throws SQLException{
+		int cnt=0;
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		
+		try {
+			
+		//1.
+		//2.
+		//3.
+			con = getConn();
+		//4.
+			StringBuilder selectCnt = new StringBuilder();
+			selectCnt
+			.append("select count(*) cnt from diary");
+			if(sd_vo!=null) {
+				//Dynamic Query
+			
+			}//end if
+			pstmt = con.prepareStatement(selectCnt.toString());
+		//5.
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				cnt= rs.getInt("cnt");
+			}
+		}finally {	
+			//6.
+				if(rs!=null) {rs.close();}
+				if(pstmt!=null) {pstmt.close();}
+				if(con!=null) {con.close();}
+			
+		}//end finally
+		
 		
 		return cnt;
 	}
+	
+	
 	
 	/**
 	 * 게시판의 리스트형식으로 조회하는 일.

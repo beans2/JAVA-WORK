@@ -51,6 +51,9 @@ $(function() {
 <div id="wrap">
 	<div id="header">
 	<div id="headerTitle">SIST Class4 </div>
+		<div style="padding-top: 100px">
+		<c:import url="../common/jsp/main_menu.jsp"/>
+		</div>
 	</div>
 	<div id="container">
 		<!-- enctype="multipart/form-data"인경우 parameter을 받을 수 없다. -->

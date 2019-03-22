@@ -48,8 +48,11 @@
 #ohNulColor{width: 100px; height: 60px; border: 1px solid #CECECE; 
 			background-color:#FFFFD9; 
 			text-align: right; vertical-align: top; font-size: 14px;font-weight: bold}
-#writeFrm{ background-color:#FFFFFF;border:1px solid #333333;
+#writeFrm{ background-color:#FFFFFF;border:1px solid #5c5c5c;
 			box-shadow:5px 5px 5px #444444;
+			padding: 10px  }
+#readFrm{ background-color:#E3FCFF;border:1px solid #05A9C4;
+			box-shadow:5px 5px 5px #027B8E;
 			padding: 10px  }
 
 
@@ -88,6 +91,16 @@
 		$("[name='diaryFrm']").submit();
 	}//writeEvt
 	
+	function readEvt(num, year,month,day){
+		$("[name='param_year']").val(year);
+		$("[name='param_month']").val(month);
+		$("[name='param_day']").val(day);
+		$("[name='pageFlag']").val("read_form");
+		$("[name='num']").val(num);
+		$("[name='diaryFrm']").submit();
+		
+	}//readEvt
+	
 </script>
 
 <script type="text/javascript">
@@ -123,7 +136,34 @@
 			
 			$("[name='writeFrm']").submit();
 			
-		})
+		});//click
+		
+		$("#btnUpdate").click(function() {
+			if($("#summernote").val()==""){
+				alert("이벤트 내용은 필수입력!!!")
+				$("#summernote").focus();
+				return;
+			}
+			if($("#pass").val()==""){
+				alert("비밀번호는 필수입력!!!")
+				$("#pass").focus();
+				return;
+			}
+			
+			$("[name='pageFlag']").val("update_process");
+			$("[name='readFrm']").submit();
+			
+			
+		});//click
+		$("#btnRemove").click(function() {
+			if($("#pass").val()==""){
+				alert("비밀번호는 필수입력!!!")
+				$("#pass").focus();
+				return;
+			}
+			$("[name='pageFlag']").val("delete_process");
+			$("[name='readFrm']").submit();
+		});//click
 	});//ready
 	
 </script>
@@ -218,7 +258,10 @@
 <body>
 <div id="wrap">
 	<div id="header">
-	<div id="headerTitle">SIST Class4 </div>
+	<div id="headerTitle">SIST Class4 </div>	
+	<div style="padding-top: 100px">
+	<c:import url="../common/jsp/main_menu.jsp"/>
+	</div>
 	</div>
 	<div id="container">
 	<div id="diaryWrap">
@@ -253,6 +296,7 @@
 		pageContext.setAttribute("nowDay", nowDay);
 	%>
 	<form action="diary.jsp" name="diaryFrm" method="post">
+		<input type="hidden" name="num"/>
 		<input type="hidden" name="param_month"/>
 		<input type="hidden" name="param_year"/>
 		<input type="hidden" name="param_day"/>
@@ -366,11 +410,11 @@
 							tempSubject=tempSubject.substring(0,20)+"...";
 						}
 				%>
-					<img src="images/evtflag.png" title="<%= tempSubject%>"/>
+					<a href="#void" onclick="readEvt(<%= dayEvt[i].getNum()
+					%>,${nowYear},${nowMonth},<%=tempDay%>)"><img src="images/evtflag.png" title="<%=tempSubject%>"/></a>
 				<%
 					}//end for
-				}//end if
-				%>
+				}//end if %>
 				</div>
 			</td>
 		<%
