@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sist</title>
+<style type="text/css">
+#wrap {
+	margin: 0px auto;
+	width: 1200px
+}
+
+#toolbar {
+	font-size: 10px;
+	color: #121212;
+	float: right;
+}
+
+.tool {
+	padding: 10px
+}
+
+.tool:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#main_toolbar {
+	height: 40px;
+	width: 1200px;
+	margin-top: 50px;
+	font-size: 10px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.main_tool {
+	margin-left: 20px
+}
+
+.main_tool:hover {
+	color: #FF0000;
+}
+
+#bottom_toolbar {
+	background-color: #00A2E2;
+	margin-top: 10px;
+	height: 30px
+}
+
+.toolBottom {
+	font-size: 12px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle
+}
+
+.toolBottonVal {
+	margin-left: 20px
+}
+<script type="text/javascript" src="coin-slider.min.js"></script>
+<link rel="stylesheet" href="coin-slider-styles.css" type="text/css"/>
+#middle{margin-top: 30px}
+#middleLeft{float: left; }
+#middleRight{float: right;}
+#left{float: left;margin-top: 30px; margin-right: 20px}
+#right{float: right;margin-top: 30px; margin-right: 20px }
+
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript"
+	src="../common/js/coin/coin-slider.min.js"></script>
+<link rel="stylesheet" href="../common/js/coin/coin-slider-styles.css"
+	type="text/css" />
+<script type="text/javascript">
+	window.onload = function() {
+		window.document.getElementById("mainTool1").onmouseover = function() {
+			var tag = document.getElementById("bottom_toolbar");
+			tag.innerHTML = "<div class='toolBottom'><span class='toolBottonVal'>개요</span><span class='toolBottonVal'>CEO 컬럼</span><span class='toolBottonVal'>연혁</span><span class='toolBottonVal'>시설 및 장비</span><span class='toolBottonVal'>교수진 소개</span>";
+		}
+
+		window.document.getElementById("mainTool2").onmouseover = function() {
+			var tag = document.getElementById("bottom_toolbar");
+			tag.innerHTML = "<div class='toolBottom'><span class='toolBottonVal'>프로그래밍 과정</span><span class='toolBottonVal'>데이터베이스 과정</span><span class='toolBottonVal'>스마트폰 과정</span>";
+		}
+		window.document.getElementById("mainTool3").onmouseover = function() {
+			var tag = document.getElementById("bottom_toolbar");
+			tag.innerHTML = "<div class='toolBottom'><span class='toolBottonVal'>프로그래밍 과정</span><span class='toolBottonVal'>데이터베이스 과정</span><span class='toolBottonVal'>스마트폰 과정</span>";
+		}
+		window.document.getElementById("mainTool4").onmouseover = function() {
+			var tag = document.getElementById("bottom_toolbar");
+			tag.innerHTML = "<div class='toolBottom'><span class='toolBottonVal'>예약신청</span>";
+		}
+		window.document.getElementById("mainTool5").onmouseover = function() {
+			var tag = document.getElementById("bottom_toolbar");
+			tag.innerHTML = "<div class='toolBottom'><span class='toolBottonVal'>취업교육</span><span class='toolBottonVal'>재직자교육</span><span class='toolBottonVal'>기업맞춤교육</span><span class='toolBottonVal'>교육컨설팅</span>";
+		}
+		window.document.getElementById("mainTool6").onmouseover = function() {
+			var tag = document.getElementById("bottom_toolbar");
+			tag.innerHTML = "<div class='toolBottom'><span class='toolBottonVal'>업체등록관리</span><span class='toolBottonVal'>구인의뢰</span><span class='toolBottonVal'>구인의뢰수정</span><span class='toolBottonVal'>SIST수료생장점</span>";
+		}
+		window.document.getElementById("mainTool7").onmouseover = function() {
+			var tag = document.getElementById("bottom_toolbar");
+			tag.innerHTML = "<div class='toolBottom'><span class='toolBottonVal'>공지사항</span><span class='toolBottonVal'>문의게시판</span><span class='toolBottonVal'>취업정보</span><span class='toolBottonVal'>후기</span><span class='toolBottonVal'>프로젝트</span>";
+		}
+
+	}
+
+	
+	
+	$(document).ready(function() {
+		$('#coin-slider').coinslider({
+			effect : 'straight', /*  random, swirl, rain, straight */
+			navigation : false,
+			opacity : 0.6,
+			delay : 1100,
+			width : "1200"
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="header">
+			<div id="toolbar">
+				<span class="tool">보안접속 </span>| <span class="tool">메인화면 </span>| <span
+					class="tool">로그인 </span>| <span class="tool">회원가입 </span>| <span
+					class="tool">사이트맵 </span><br />
+			</div>
+			<div id="main_toolbar">
+				<span><img src="../common/images/sist_logo.jpg" height="40px" /></span>
+				<span class="main_tool" id="mainTool1">센터소개</span> <span
+					class="main_tool" id="mainTool2">재직자교육과정</span> <span
+					class="main_tool" id="mainTool3">취업교육과정</span> <span
+					class="main_tool" id="mainTool4">예약센터</span> <span
+					class="main_tool" id="mainTool5">교육서비스</span> <span
+					class="main_tool" id="mainTool6">인재추천의뢰</span> <span
+					class="main_tool" id="mainTool7">고객센터</span>
+			</div>
+			<div id="bottom_toolbar"></div>
+		</div>
+		<div id="container">
+			<div id='coin-slider'>
+				<a href="#void" target="_blank"> <img
+					src='../common/images/img1.PNG'>
+				</a> <a href="#void" target="_blank"> <img
+					src='../common/images/img2.PNG'>
+				</a> <a href="#void" target="_blank"> <img
+					src='../common/images/img3.PNG'>
+				</a> <a href="#void" target="_blank"> <img
+					src='../common/images/img4.PNG'>
+				</a>
+			</div>
+			<div id="middleLeft">
+				<div id="left">
+					<img src="../common/images/img2_1.PNG" width="370" height="200">
+				</div>
+				<div id="right">
+					<img src="../common/images/img2_2.PNG" width="350" height="200">
+				</div>
+			</div>
+			<div id="middleRight">
+				
+			</div>
+		</div>
+		<div id="footer"></div>
+	</div>
+</body>
+</html>
