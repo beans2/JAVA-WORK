@@ -102,7 +102,7 @@ public class ClientChatEvt extends WindowAdapter implements ActionListener, Runn
 				return;
 			} // end if
 			System.out.println(ccv.getSelectTeam());
-			client = new Socket("211.63.89.142", ccv.getSelectTeam());				
+			client = new Socket("localhost", ccv.getSelectTeam());				
 			readStream = new DataInputStream(client.getInputStream());
 			writeStream = new DataOutputStream(client.getOutputStream());
 
