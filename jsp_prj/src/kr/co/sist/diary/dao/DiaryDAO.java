@@ -1,5 +1,8 @@
 package kr.co.sist.diary.dao;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +20,7 @@ import kr.co.sist.diary.vo.DiaryListVO;
 import kr.co.sist.diary.vo.DiaryRemoveVO;
 import kr.co.sist.diary.vo.DiaryUpdateVO;
 import kr.co.sist.diary.vo.DiaryVO;
+import kr.co.sist.diary.vo.ListRangeVO;
 import kr.co.sist.diary.vo.MonthVO;
 import kr.co.sist.diary.vo.SearchDataVO;
 
@@ -158,13 +162,15 @@ public class DiaryDAO {
 	 * @param num
 	 * @return
 	 * @throws SQLException
+	 * @throws IOException 
 	 */
-	public DiaryDetailVO selectDetailEvent(int num)throws SQLException {
+	public DiaryDetailVO selectDetailEvent(int num)throws SQLException, IOException {
 		DiaryDetailVO dd_vo = null;
 		
 		Connection con= null;
 		PreparedStatement pstmt= null;
 		ResultSet rs= null;
+		BufferedReader br = null;
 		
 		try {
 		//1.
@@ -184,11 +190,25 @@ public class DiaryDAO {
 			rs= pstmt.executeQuery();
 			
 			if(rs.next()) {
-				dd_vo= new DiaryDetailVO(rs.getString("writer"), rs.getString("subject"), rs.getString("contents"), rs.getString("w_date"), rs.getString("ip"));
+				
+				//CLOB처리
+				Clob clob=rs.getClob("contents");
+				//별도의 스트림을 연결한다.
+				br= new BufferedReader(clob.getCharacterStream());
+				String temp="";
+				StringBuilder contents = new StringBuilder();
+				while((temp= br.readLine())!=null) {
+					contents.append(temp);
+				}//end while
+				
+				dd_vo= new DiaryDetailVO(rs.getString("writer"), 
+						rs.getString("subject"), contents.toString(), 
+						rs.getString("w_date"), rs.getString("ip"));
 			}//end if
 			
 		}finally {
 			//6.
+			if(br!=null) {br.close();}
 			if(rs!=null) {rs.close();}
 			if(pstmt!=null) {pstmt.close();}
 			if(con!=null) {con.close();}
@@ -288,12 +308,19 @@ public class DiaryDAO {
 		//4.
 			StringBuilder selectCnt = new StringBuilder();
 			selectCnt
-			.append("select count(*) cnt from diary");
+			.append(" select count(*) cnt from diary ");
 			if(sd_vo!=null) {
 				//Dynamic Query
+				selectCnt.append(" where ").append(sd_vo.getFieldName())
+				.append(" like '%'|| ? ||'%' ");
 			
 			}//end if
 			pstmt = con.prepareStatement(selectCnt.toString());
+			if(sd_vo!=null) {
+				pstmt.setString(1, sd_vo.getKeyword());
+			}
+			
+			
 		//5.
 			rs= pstmt.executeQuery();
 			
@@ -320,9 +347,60 @@ public class DiaryDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<DiaryListVO> selectList(SearchDataVO sd_vo)throws SQLException{
+	public List<DiaryListVO> selectList(ListRangeVO lr_vo,SearchDataVO sd_vo)throws SQLException{
 		List<DiaryListVO> list = new ArrayList<DiaryListVO>();
 		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+		//1.
+		//2.
+		//3.
+			con = getConn();
+		//4.
+			StringBuilder selectList = new StringBuilder();
+			selectList
+			.append(" select r_num,num, writer, subject, e_year, e_month, e_day, to_char(w_date,'yyyy-mm-dd hh24:mi') w_date ")
+			.append(" from(select num, writer, subject, e_year, e_month, e_day, w_date, ")
+			.append(" 	row_number() over( order by w_date desc) r_num ")
+			.append(" 	from diary ");
+			
+			if(sd_vo!=null) {
+				selectList.append(" where  ").append(sd_vo.getFieldName())
+				.append(" like '%'||?||'%' ");
+			}//end if
+			
+			selectList.append(" ) ") 
+			.append(" 	where r_num between ? and ? ");
+			
+			pstmt = con.prepareStatement(selectList.toString());
+			
+			int bindIdx=1;
+			
+			if(sd_vo!=null) {
+				pstmt.setString(bindIdx++,sd_vo.getKeyword());
+			}
+			pstmt.setInt(bindIdx++,lr_vo.getStartNum());
+			pstmt.setInt(bindIdx++,lr_vo.getEndNum());
+			
+			DiaryListVO dl_vo=null;
+			
+			//5.
+			rs= pstmt.executeQuery();
+			while(rs.next()) {
+				dl_vo=new DiaryListVO(rs.getInt("num"), rs.getString("subject"),rs.getString("writer"), 
+						rs.getString("e_year"),rs.getString("e_month"), rs.getString("e_day"), rs.getString("w_date"));
+				list.add(dl_vo);
+			}//end while
+				
+		}finally {
+			//6.
+			if(rs!=null) {rs.close();}
+			if(pstmt!=null) {pstmt.close();}
+			if(con!=null) {con.close();}
+		}//end finally
 		return list;
 	}
 	
