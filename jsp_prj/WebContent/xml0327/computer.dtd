@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT computers (computer)*>
+<!ELEMENT computer (cpu+,mb?,ram+,)>
