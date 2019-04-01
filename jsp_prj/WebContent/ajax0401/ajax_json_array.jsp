@@ -19,9 +19,27 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-	${function() {
-		
-	}};//ready
+	$(function() {
+		$("#getJsonArr").click(function() {
+			$.ajax({
+				url: "json_array.jsp",
+				type: "get",
+				dataType:"json",
+				error: function(xhr) {
+					alert(xhr.status+"/"+xhr.statusText);
+				},
+				success: function(json_arr) {
+					var output="<ul>";
+					$.each(json_arr,function(i,json_obj){
+						output+="<li>"+json_obj.name+"/"+json_obj.age+
+						"/"+json_obj.addr+"</li>"
+					});//each
+					output+="</ul>";
+					$("#jsonArrDiv").html(output);
+				}//success
+			});
+		})
+	});//ready
 </script>
 </head>
 <body>
@@ -33,7 +51,11 @@
 	</div>
 	</div>
 	<div id="container">
-	
+		<div>
+			<a href="#void" id="getJsonArr">값얻기</a>
+		</div>
+		<div id="jsonArrDiv">
+		</div>
 	</div>
 	<div id="footer">
 		<div id="footerTitle">copyright&copy; all right reserved. class 4</div>
