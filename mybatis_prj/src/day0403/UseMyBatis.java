@@ -11,6 +11,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class UseMyBatis {
+	public UseMyBatis() {
+		org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+	}
+	
 	public SqlSessionFactory getSessionFactory()throws IOException {
 		// 1.환결설정 xml에 stream연결.
 		Reader reader = Resources.getResourceAsReader("day0403/mybatis_config.xml");
@@ -32,7 +36,7 @@ public class UseMyBatis {
 		int cnt =ss.insert("insertCpDept",dv);
 		ss.commit();
 		System.out.println("추가 작업 "+cnt);
-	}
+	}//insertCpDept
 	
 
 	public void selectAllDept() throws IOException {
@@ -74,15 +78,12 @@ public class UseMyBatis {
 			System.out.println("해당 부서는 존재하지 않습니다.");
 		}
 		
-	}
-	
+	}//deleteCpDept
 	
 	public static void main(String[] args) {
 		UseMyBatis umb = new UseMyBatis();
 		try {
 			DeptVO dv= new DeptVO(11, "SM개발", "원주");
-				//umb.insertCpDept(dv);
-				//umb.updateCpDept(dv);
 				umb.deleteCpDept(11);
 				umb.selectAllDept();
 		} catch (IOException e) {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.sist.exam2">
+	<!-- 컬럼하나에 레코드 하나 조회 -->	
+	<!-- 컬럼하나에 레코드 여러개 조회 -->	
+	<!-- 컬럼여러개 레코드 하나 조회 -->	
+	<!-- 컬럼여러개 레코드 여러개 조회 -->	
+	<!-- <의 조회 -->
+	<!-- >의 조회 -->
+	<!-- 동일쿼리의 처리 -->
+	<!-- like의 조회 -->
+	<!-- subquery 의 조회 -->
+	<!-- union 의 조회 -->
+	<!-- join 의 조회 -->
+	<!-- join+subquery 의 조회 -->
+	<!-- 컬럼명 또는 테이블명 동적일때의 조회 -->
+	<!-- dynamic query: where, if, choose, foreach -->
+	
+</mapper>
