@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.co.sist.exam.domain.DeptInfo;
+import kr.co.sist.exam.domain.Emp;
 
 public class MyBatisDAO {
 	private static MyBatisDAO mb_dao;
@@ -79,6 +80,18 @@ public class MyBatisDAO {
 		
 		return list;
 	}
+	
+	public List<Emp> multiColumnRow(int deptno){
+		List<Emp> list= null;
+		//4. Handler 얻기
+		SqlSession ss= getSessionFactory().openSession();
+		
+		//5. mapper에서 쿼리가 존재하는 id를 찾아 실행
+		list =ss.selectList("multiColumnRow",deptno);
+		
+		ss.close();
+		return list;
+	}//multiColumnRow
 	
 	public static void main(String[] args) {
 		MyBatisDAO m= MyBatisDAO.getInstance();
