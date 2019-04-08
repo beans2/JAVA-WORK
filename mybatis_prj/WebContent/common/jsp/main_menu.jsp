@@ -42,6 +42,13 @@
                 <li><a href="main.jsp?page=day0405/like">like 사용</a></li>
               </ul>
             </li>
+            <li><a href="#void">3일차</a>
+              <ul>
+                <li><a href="main.jsp?page=day0408/subquery">서브쿼리</a></li>
+                <li><a href="main.jsp?page=day0408/union">union</a></li>
+                <li><a href="main.jsp?page=day0408/join">join</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         </ul>
