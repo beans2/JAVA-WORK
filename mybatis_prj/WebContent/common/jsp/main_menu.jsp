@@ -49,6 +49,14 @@
                 <li><a href="main.jsp?page=day0408/join">join</a></li>
               </ul>
             </li>
+            <li><a href="#void">4일차</a>
+              <ul>
+                <li><a href="main.jsp?page=day0409/join_subquery">join_subquery</a></li>
+                <li><a href="main.jsp?page=day0409/dynamic_table">테이블명이 동적일때</a></li>
+                <li><a href="main.jsp?page=day0409/dynamic_if">dynamic if</a></li>
+                <li><a href="main.jsp?page=day0409/homework">hk</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         </ul>

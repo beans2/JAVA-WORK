@@ -24,7 +24,7 @@
 		
 	});//ready
 </script>
-</head>
+</head> 
 <body>
 <div id="wrap">
 	<div id="header">
