@@ -24,94 +24,112 @@
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript">
-
-function countryChange(){
-	var korMaker = ["현대","삼성"];
-	var gerMaker = ["BMW"];
-	var selectItem = $("#country").val();
-	 alert(selectItem);
-	var changeItem;
-	if(selectItem == "국산"){
-	  changeItem = korMaker;
-	}
-	else(selectItem == "수입"){
-	  changeItem = gerMaker;
-	}
-	$('#maker').empty();
-	for(var count = 0; count < changeItem.size(); count++){                
-	                var option = $("<option>"+changeItem[count]+"</option>");
-	                $('#maker').append(option);
-	}
-}
-function makerChange(){
-	var hyeondai = ["그랜저","소나타"];
-	var samsung = ["SM7","SM5"];
-	var bmw = ["Eclass","Cclass"];
-	var selectItem = $("#maker").val();
-	var changeItem;
-	if(selectItem == "현대"){
-	  changeItem = hyeondai;
-	}
-	else if(selectItem == "삼성"){
-	  changeItem = samsung;
-	}
-	else if(selectItem == "BMW"){
-	  changeItem = bmw;
-	}
-	$('#model').empty();
-	alert(changeItem.size);
-	for(var count = 0; count < changeItem.size; count++){
-	                var option = $("<option>"+changeItem[count]+"</option>");
-	                $('#model').append(option);
-	}
-}
-</script>
 
 </head>
 <%
+	
+	String country= request.getParameter("car_country");
+	String maker= request.getParameter("car_maker");
+	String model= request.getParameter("car_model");
+	String selectFlag=request.getParameter("car_flag");// submit이 되는 <form>에서 어떤 Form Control이 이벤트를 발생
+	//시켰는지 식별하기 위해서
+	
 	MyBatisService1 mbs= new MyBatisService1();
 	
-	String country= request.getParameter("country");
-	String maker= request.getParameter("maker");
-	String model= request.getParameter("model");
-	
-	if(country!=null){
-		List<homeworkDomain> list= mbs.homework(new homeworkVO(country,maker,model));
-		pageContext.setAttribute("empList", list);
+		
+	if("1".equals(selectFlag)){ //제조국에서 이벤트가 발생 했을 때
+		List<String> list= mbs.searchMaker(country); //제조국에 따른 제조사를 조회
+		pageContext.setAttribute("makerList", list);
+	}
+	if("2".equals(selectFlag)){ //제조사에서 이벤트가 발생 했을 때
+		List<String> list= mbs.searchMaker(country);
+		pageContext.setAttribute("makerList", list);
+		
+		List<String> modelList= mbs.searchModel(maker);//제조사에 따른 모델명을 조회
+		pageContext.setAttribute("modelList", modelList);
 	}//end if
+	if("3".equals(selectFlag)){ //제조사에서 이벤트가 발생 했을 때
+		List<String> list= mbs.searchMaker(country);
+		pageContext.setAttribute("makerList", list);
+		
+		List<String> modelList= mbs.searchModel(maker);//제조사에 따른 모델명을 조회
+		pageContext.setAttribute("modelList", modelList);
+		
+		List<homeworkDomain> carList = mbs.homework(new homeworkVO(country,maker,model));
+		pageContext.setAttribute("carList", carList);
+		
+	}//end if
+		
 %>
 
+<script type="text/javascript">
+$(function() {
+	$("#car_country").change(function() {
+		if($("#car_country").val()!="none"){
+			$("#car_flag").val(1);
+			$("#frm").submit();
+		}//end if
+	});//change
+	$("#car_maker").change(function() {
+		if($("#car_maker").val()!="none"){
+			$("#car_flag").val(2);
+			$("#frm").submit();
+		}//end if
+	});//change
+	$("#car_model").change(function() {
+		if($("#car_model").val()!="none"){
+			$("#car_flag").val(3);
+		}//end if
+	});//change
+	$("#btn").click(function() {
+		if($("#car_flag").val()=="3"){
+			$("#frm").submit();
+		}
+	})
+});//ready
+</script>
 
-<form name="frm" action="main.jsp">
+<form id="frm" action="main.jsp" method="get">
 <input type="hidden" name="page" value="day0409/homework"/>
+<input type="hidden" name="car_flag" id="car_flag"/>
+
 <div style="padding: 30px">
 제조국 
-<select style="width: 150px" id="country" name="country" onchange="countryChange()">
-	<option >국산</option>
-	<option >수입</option>
+<select style="width: 150px" id="car_country" name="car_country" >
+	<option value="none">==제조국==</option>
+	<option value="국산"${param.car_country eq '국산'?"selected='selected'":"" }>국산</option>
+	<option value="수입"${param.car_country eq '수입'?"selected='selected'":""}>수입</option>
 </select>
 제조사
-<select style="width: 150px" id="maker" name="maker" onchange="makerChange()">
-	<option >기아</option>
+<select style="width: 150px" id="car_maker" name="car_maker" >
+	<option value="none">==제조사==</option>
+	<c:if test="${not empty makerList }">
+	<c:forEach var="maker" items="${makerList }">
+	<option value="${maker }"${param.car_maker eq maker?"selected='selected'":"" }><c:out value="${maker }"/></option>
+	</c:forEach>
+	</c:if>
 </select>
 모델명
-<select style="width: 150px"  id="model" name="model">
-	<option >K5</option>
+<select style="width: 150px"  id="car_model" name="car_model">
+	<option value="none">==모델명==</option>
+	<c:if test="${ not empty modelList }">
+	<c:forEach var="model" items="${modelList }">
+	<option value="${model }"${param.car_model eq model?"selected='selected'":"" }><c:out value="${model }"/></option>
+	</c:forEach>
+	</c:if>
 </select>
-<input type="submit" value="조회" class="btn"/><br/>
+<input type="button" value="조회" id="btn" class="btn"/><br/>
 </div>
 </form>
 <div>
-<c:if test="${not empty param.country}">
+<c:if test="${param.car_flag eq '3'}">
 	<table border="1">
 		<tr>
 		<th width="200">이미지</th>
 		<th width="400">옵션</th>
 		<th width="180">연식</th>
 		</tr>
-		
-		<c:if test="${empty empList}">
+		<c:if test="${empty carList}">
 		<tr>
 			<td colspan="6" align="center">
 					조회결과가 없습니다.
@@ -119,11 +137,18 @@ function makerChange(){
 		</tr>
 		</c:if>
 		
-		<c:forEach var="emp" items="${empList}">
+		<c:forEach var="car" items="${carList}">
 		<tr>
-			<td><img src="http://localhost:8080/mybatis_prj/day0409/images/${emp.car_img }"></td>
-			<td><c:out value="${emp.car_option }"/></td>
-			<td><c:out value="${emp.cc }"/></td>
+			<td>
+				<div>
+				<img src="http://localhost:8080/mybatis_prj/day0409/images/${car.car_img }" width="63px">
+				${car.model } /
+				${car.maker }/
+				${car.country }
+				</div>
+			</td>
+			<td><c:out value="${car.car_option }"/></td>
+			<td><c:out value="${car.cc }"/></td>
 		</tr>
 		</c:forEach>
 	</table>
