@@ -29,10 +29,13 @@
 	<div id="header">
 	<div id="headerTitle">SIST Class4 </div>
 	<div style="padding-top: 100px">
+		<c:import url="/common/jsp/main_menu.jsp"/>
 	</div>
 	</div>
 	<div id="container">
 	
+		GET방식으로 요청된 페이지<br/>
+		요청방식: <%=request.getMethod() %>
 	</div>
 	<div id="footer">
 		<div id="footerTitle">copyright&copy; all right reserved. class 4</div>
@@ -40,7 +43,7 @@
 </div>
 </body>
 </html>
- 
+
 
 
 
