@@ -404,6 +404,4 @@ public class DiaryDAO {
 		return list;
 	}
 	
-	
-	
 }
