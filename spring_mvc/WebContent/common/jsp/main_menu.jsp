@@ -91,6 +91,14 @@
                 <li><a href="session/an_use_session.do" >@SessionAttribute사용</a></li>
               </ul>
             </li>
+            <li><a href="#void">4일차</a>
+              <ul>
+                <li><a href="cookie/read_cookie.do" >Cookie 클래스 사용한 값얻기</a></li>
+                <li><a href="cookie/read_an_cookie.do" >@CookieValue를 사용한 값얻기</a></li>
+                <li><a href="include/include.do" >JSP include</a></li>
+                <li><a href="ajax/ajax.do">ajax</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#">동기방식 차량조회</a></li>
