@@ -99,9 +99,14 @@
                 <li><a href="ajax/ajax.do">ajax</a></li>
               </ul>
             </li>
+            <li><a href="#void">5일차</a>
+              <ul>
+                <li><a href="diary/list.do">일정보기</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
-        <li><a href="#">동기방식 차량조회</a></li>
+        <li><a href="#void">동기방식 차량조회</a></li>
         </ul>
      </nav>
 

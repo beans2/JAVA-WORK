@@ -12,47 +12,98 @@ solution을 완성하세요. 요일의 이름은
  (13월 26일이나 2월 45일같은 날짜는 주어지지 않습니다)
 */
 
-import java.awt.image.DataBufferUShort;
-import java.util.Calendar;
-
 /**
  * @author owner
  *
  */
 class Test1 {
-
-	public String solution(int a, int b) {
-		int month = a;
-		int dayOfMonth = b;
-		String answer = "";
-		Calendar cld = Calendar.getInstance();
-		cld.set(Calendar.YEAR, 2016);
-		cld.set(Calendar.MONTH,month+1);
-		cld.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-		int c =0;
-		if(cld.MONTH==2) {
-			c = cld.getActualMaximum(Calendar.DAY_OF_MONTH)-2;								
-		}else {
-			c = cld.getActualMaximum(Calendar.DAY_OF_MONTH);					
-		}
-		if((month<13)&&(month>0)) {
-//			System.out.println(month+"/"+dayOfMonth+"/"+c);
-			if((dayOfMonth<=c)&&(dayOfMonth>0)){
-				String[] dow = { "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT" };
-				System.out.println("요일"+dow[cld.get(Calendar.DAY_OF_WEEK) -1]);
-				answer = dow[cld.get(Calendar.DAY_OF_WEEK)-1];			
-				System.out.println(answer);
+	public void plusAndMinus() {
+		int sum=0, cnt=1;
+		
+		for(int i=1;i<101;i++) {
+			if(i%2==0) {
+				cnt=-i;
 			}else {
-				System.out.println("입력가능 날짜가 아닙니다.");				
+				cnt=i;
 			}
-			}else {
-			System.out.println("입력가능 달이 아닙니다.");
+			sum+=cnt;
+			System.out.print(cnt+"  ");
 		}
-		return answer;
+		System.out.println(sum);
 	}
+	
+	public void sosu() {
+		int cnt=0; 
+		int sosu=1;
+		for(int i=1;i<101;i++) {
+			for(int j=1;j<101;j++) {
+				if(i%j==0) {
+					cnt++;
+				}
+			}
+			if(cnt==2) {
+				sosu=i;
+			}
+			cnt=0;
+		}
+		System.out.println("가장 큰 소수: "+sosu);
+	}
+	public boolean sosu(int num) {
+		boolean sosuFlag=false;
+		int cnt=0;
+		for(int i=1; i<=num; i++) {
+			if(num%i==0) {
+				cnt++;
+			}
+		}
+		if(cnt==2) {
+			sosuFlag=true;
+		}
+		return sosuFlag;
+	}
+	
+	public void soinsu(int num) {
+		int mod=2, i=0, cnt=0;
+		int[] storage= new int[200];
+		if(sosu(num)) {
+			System.out.println("소수입니다.");
+			return;
+		}
+		while(true) {
+			if((num%mod)==0) {
+				num=num/mod;
+				storage[i]=mod;
+				i++;
+			}else {
+				mod++;
+				storage[i]=num;
+			}
+			if(num/mod==1) {
+				break;
+			}
+		}//end while
+		for(int j=0; j<=storage.length;j++) {
+			if(storage[j]!=0) {
+				System.out.print(storage[j]+" ");
+				System.out.print("*");
+			}
+		}
+	}
+	
+	public void gongbae() {
+		int A[]= {21,17,4,51,24,75,40,27,48,72};
+		for(int i=0; i<A.length;i++) {
+			if(A[i]%3==0) {
+				if(A[i]%4==0) {
+					System.out.println(A[i]);
+				}
+			}
+		}//end for
+	}
+
 	public static void main(String[] args) {
 		Test1 t1 = new Test1();
-		t1.solution(5,24);
+		t1.gongbae();
 	}
 
 }
