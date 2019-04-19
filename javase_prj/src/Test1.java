@@ -17,93 +17,35 @@ solution을 완성하세요. 요일의 이름은
  *
  */
 class Test1 {
-	public void plusAndMinus() {
-		int sum=0, cnt=1;
-		
-		for(int i=1;i<101;i++) {
-			if(i%2==0) {
-				cnt=-i;
-			}else {
-				cnt=i;
-			}
-			sum+=cnt;
-			System.out.print(cnt+"  ");
-		}
-		System.out.println(sum);
-	}
-	
-	public void sosu() {
-		int cnt=0; 
-		int sosu=1;
-		for(int i=1;i<101;i++) {
-			for(int j=1;j<101;j++) {
-				if(i%j==0) {
-					cnt++;
-				}
-			}
-			if(cnt==2) {
-				sosu=i;
-			}
-			cnt=0;
-		}
-		System.out.println("가장 큰 소수: "+sosu);
-	}
-	public boolean sosu(int num) {
-		boolean sosuFlag=false;
-		int cnt=0;
-		for(int i=1; i<=num; i++) {
-			if(num%i==0) {
-				cnt++;
-			}
-		}
-		if(cnt==2) {
-			sosuFlag=true;
-		}
-		return sosuFlag;
-	}
-	
-	public void soinsu(int num) {
-		int mod=2, i=0, cnt=0;
-		int[] storage= new int[200];
-		if(sosu(num)) {
-			System.out.println("소수입니다.");
-			return;
-		}
-		while(true) {
-			if((num%mod)==0) {
-				num=num/mod;
-				storage[i]=mod;
-				i++;
-			}else {
-				mod++;
-				storage[i]=num;
-			}
-			if(num/mod==1) {
-				break;
-			}
-		}//end while
-		for(int j=0; j<=storage.length;j++) {
-			if(storage[j]!=0) {
-				System.out.print(storage[j]+" ");
-				System.out.print("*");
-			}
-		}
-	}
-	
-	public void gongbae() {
-		int A[]= {21,17,4,51,24,75,40,27,48,72};
-		for(int i=0; i<A.length;i++) {
-			if(A[i]%3==0) {
-				if(A[i]%4==0) {
-					System.out.println(A[i]);
-				}
-			}
-		}//end for
+	public int solution(String s) {
+		int answer = 0;
+		int flag=1;
+	      int[] zaritsu=new int[s.length()];
+	      int intgap=0;
+	      char[] charater= new char[s.length()];
+	      int sum=0;
+	      for(int i=0;i<charater.length;i++){
+	        charater[i]=s.charAt(i);
+	          if(((int)charater[i]<58)&&((int)charater[i]>47)){
+	        	  zaritsu[i]++;
+	              for(int j=0;j<i;j++){
+		              zaritsu[i]= zaritsu[i]*10;
+	               }//end for
+	            intgap = (5-((int)charater[i]-48))*zaritsu[i];
+	            sum+=intgap;
+	          }else if((int)charater[i]==56) {
+	        	  flag=-1;
+	          }
+	      }//end for
+	      System.out.println(sum);
+	      answer=sum*flag;
+	      return answer;
 	}
 
 	public static void main(String[] args) {
 		Test1 t1 = new Test1();
-		t1.gongbae();
+		t1.solution("-1234");
+
 	}
 
 }

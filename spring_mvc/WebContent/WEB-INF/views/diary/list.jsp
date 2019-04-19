@@ -81,7 +81,7 @@ tr:HOVER{ background-color: #F3F3F3;}
 			<c:forEach var="data" items="${diaryList}">
 			<c:set var="i" value="${i+1}"/>
 			<tr>
-				<td><c:out value="${(param.currentPage-1)*pageScale+i}"/></td>
+				<td><c:out value="${(totalCount-(currentPage-1)*pageScale-i)+1}"/></td>
 				<td><a href="bbs_read.do?num=${data.num}"><c:out value="${data.subject}"/></a></td>
 				<td><c:out value="${data.writer}"/></td>
 				<td><c:out value="${data.e_year}-${data.e_month}-${data.e_day}"/></td>
