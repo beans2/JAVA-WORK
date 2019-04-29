@@ -1,11 +1,12 @@
 package kr.co.sist.vo;
 
 public class MemberVO {
-	private String name,img,loc,highschool;
-
+	
+	private String name, img, loc, highschool;
+	
 	public MemberVO() {
 	}
-
+	
 	public MemberVO(String name, String img, String loc, String highschool) {
 		this.name = name;
 		this.img = img;
@@ -13,6 +14,8 @@ public class MemberVO {
 		this.highschool = highschool;
 	}
 
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -43,8 +46,5 @@ public class MemberVO {
 
 	public void setHighschool(String highschool) {
 		this.highschool = highschool;
-	}
-	
-	
-	
+	} 
 }
