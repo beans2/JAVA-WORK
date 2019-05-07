@@ -14,4 +14,9 @@ public class ItemDAOImpl implements ItemDAO {
 		return new ItemDomain("IT_T001",name+ "자신감 있는 태도, 해박한 전문지식, 출신대학서울대, 포장기술");
 	}//selectItem
 
+	@Override
+	public String getDbName() {
+		return null;
+	}
+
 }
